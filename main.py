@@ -216,23 +216,6 @@ def close_user_guide(event):
     # Close the user guide window.
     user_guide_window.Close()
 
-def check_for_updates(current_version):
-    url = "https://api.github.com/repos/ibrahim-ashraf/QuranTester/releases/latest"
-    response = requests.get(url)
-    latest_release = response.json()
-    print(latest_release)
-    return
-    # latest_version = latest_release['tag_name']
-
-    if latest_version != current_version:
-        return True  # هنا يُعتبر هناك تحديث متاح
-    else:
-        return False  # لا توجد تحديثات جديدة
-
-current_version = 1.0
-
-check_for_updates(current_version)
-
 # Function to display the about app dialog.
 def show_about_app_dialog(event):
     # Show a message box with information about the application.
