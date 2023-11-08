@@ -4,6 +4,7 @@ import json
 import random
 import requests
 import sys
+import webbrowser
 import wx
 
 # Initialize the wxPython application
@@ -42,6 +43,7 @@ test_text_label = wx.StaticText(panel, label = "نص الاختبار:")
 test_text_edit = wx.TextCtrl(panel, style = wx.TE_MULTILINE | wx.TE_READONLY)
 save_test_button = wx.Button(panel, label = "حفظ الاختبار")
 show_user_guide_button = wx.Button(panel, label = "دليل المستخدم")
+check_for_updates_button = wx.Button(panel, label = "البحث عن تحديثات")
 about_app_button = wx.Button(panel, label = "حول البرنامج")
 
 # Define the create_test() function, which is called when the Create Test button is clicked
@@ -216,6 +218,41 @@ def close_user_guide(event):
     # Close the user guide window.
     user_guide_window.Close()
 
+def has_internet_connection():
+    try:
+        response = requests.get("https://www.google.com", timeout=5)
+        return True
+    except requests.ConnectionError:
+        return False
+
+def check_for_updates(event):
+    if not has_internet_connection():
+        wx.MessageBox("تأكد من اتصالك بالإنترنت وحاول مرة أخرى.", "خطأ في الاتصال بالإنترنت")
+        return
+
+    url = "https://api.github.com/repos/ibrahim-ashraf/QuranTester/releases/latest"
+    response = requests.get(url)
+
+    if response.status_code == 200:
+        latest_release = response.json()
+        latest_version = latest_release["tag_name"]
+
+        if latest_version == "v1.0":
+            wx.MessageBox("لا يوجد تحديث متاح.", "لا يوجد تحديث")
+        else:
+            update_available_dialog = wx.MessageDialog(panel, f"يتوفر تحديث جديد برقم {latest_version[1:]}. هل تريد تنزيله؟", "يتوفر تحديث جديد", wx.YES_NO)
+            result = update_available_dialog.ShowModal()
+            update_available_dialog.Destroy()
+
+            if result == wx.ID_YES:
+                wx.MessageBox("اضغط \"موافق\" لفتح المتصفح وتنزيل التحديث.", "رسالة")
+                release_url = f"https://github.com/ibrahim-ashraf/QuranTester/releases/download/{latest_version}/{latest_release['assets'][0]['name']}"
+                webbrowser.open(release_url)
+            else:
+                return
+    else:
+        wx.MessageBox("خطأ في البحث عن التحديثات. حاول مرة أخرى لاحقًا.", "خطأ")
+
 # Function to display the about app dialog.
 def show_about_app_dialog(event):
     # Show a message box with information about the application.
@@ -225,6 +262,7 @@ def show_about_app_dialog(event):
 create_test_button.Bind(wx.EVT_BUTTON, create_test)
 save_test_button.Bind(wx.EVT_BUTTON, save_test)
 show_user_guide_button.Bind(wx.EVT_BUTTON, show_user_guide)
+check_for_updates_button.Bind(wx.EVT_BUTTON, check_for_updates)
 about_app_button.Bind(wx.EVT_BUTTON, show_about_app_dialog)
 
 # Show the main frame.
