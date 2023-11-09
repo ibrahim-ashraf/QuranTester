@@ -218,6 +218,8 @@ def close_user_guide(event):
     # Close the user guide window.
     user_guide_window.Close()
 
+# Function to check internet connection by making a GET request to "https://www.google.com".
+# Returns True if there is internet connection, else returns False.
 def has_internet_connection():
     try:
         response = requests.get("https://www.google.com", timeout=5)
@@ -225,25 +227,37 @@ def has_internet_connection():
     except requests.ConnectionError:
         return False
 
+# Function to check for updates in the GitHub repository of the application.
 def check_for_updates(event):
+    # Check if there is an internet connection
     if not has_internet_connection():
+        # If no internet connection, display an error message.
         wx.MessageBox("تأكد من اتصالك بالإنترنت وحاول مرة أخرى.", "خطأ في الاتصال بالإنترنت")
         return
 
+    # URL of the latest release in the GitHub repository.
     url = "https://api.github.com/repos/ibrahim-ashraf/QuranTester/releases/latest"
+
+    # Make a GET request to the GitHub API to fetch the latest release information.
     response = requests.get(url)
 
+    # If the request is successful (status code 200).
     if response.status_code == 200:
+        # Parse the JSON response to get the latest version tag_name
         latest_release = response.json()
         latest_version = latest_release["tag_name"]
 
+        # Check if the latest version is "v1.0"
         if latest_version == "v1.0":
+            # If no update is available, display a message indicating no update is available
             wx.MessageBox("لا يوجد تحديث متاح.", "لا يوجد تحديث")
         else:
+            # If an update is available, prompt the user with a dialog box to download the update
             update_available_dialog = wx.MessageDialog(panel, f"يتوفر تحديث جديد برقم {latest_version[1:]}. هل تريد تنزيله؟", "يتوفر تحديث جديد", wx.YES_NO)
             result = update_available_dialog.ShowModal()
             update_available_dialog.Destroy()
 
+            # If the user chooses to download the update, open the browser to the release URL
             if result == wx.ID_YES:
                 wx.MessageBox("اضغط \"موافق\" لفتح المتصفح وتنزيل التحديث.", "رسالة")
                 release_url = f"https://github.com/ibrahim-ashraf/QuranTester/releases/download/{latest_version}/{latest_release['assets'][0]['name']}"
@@ -251,6 +265,7 @@ def check_for_updates(event):
             else:
                 return
     else:
+        # If there is an error in fetching updates, display an error message
         wx.MessageBox("خطأ في البحث عن التحديثات. حاول مرة أخرى لاحقًا.", "خطأ")
 
 # Function to display the about app dialog.
@@ -269,3 +284,8 @@ about_app_button.Bind(wx.EVT_BUTTON, show_about_app_dialog)
 frame.Show()
 # Start the wxPython main event loop.
 app.MainLoop()
+
+
+The first release of our QuranTester Windows program.
+This release includes only the portable version file of the program as a ZIP file, because we haven't created an installer yet.
+Please unzip the "QuranTester.zip" file and go to the "QuranTester" folder and then run the program by opening the "QuranTester.exe" file.
