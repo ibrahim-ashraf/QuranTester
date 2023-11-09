@@ -271,7 +271,7 @@ def check_for_updates(event):
 # Function to display the about app dialog.
 def show_about_app_dialog(event):
     # Show a message box with information about the application.
-    wx.MessageBox("الاسم: مختبر القرآن الكريم\nالإصدار: 1.0\nالمطور: Ibrahim Ashraf\nتاريخ الإصدار الأولي: الأحد، 5 نوفمبر 2023 م\n21 ربيع الثاني 1445ه\n\nحقوق الطبع والنشر: ©2023 Ibrahim Ashraf. كافة الحقوق محفوظة.", "حول البرنامج")
+    wx.MessageBox("الاسم: مختبر القرآن الكريم\nالإصدار: 1.0\nالمطور: Ibrahim Ashraf\nتاريخ الإصدار الأولي: الخميس، 9 نوفمبر 2023 م\n25 ربيع الثاني 1445ه\n\nحقوق الطبع والنشر: ©2023 Ibrahim Ashraf. كافة الحقوق محفوظة.", "حول البرنامج")
 
 # Bind button click events to corresponding functions.
 create_test_button.Bind(wx.EVT_BUTTON, create_test)
