@@ -284,8 +284,3 @@ about_app_button.Bind(wx.EVT_BUTTON, show_about_app_dialog)
 frame.Show()
 # Start the wxPython main event loop.
 app.MainLoop()
-
-
-The first release of our QuranTester Windows program.
-This release includes only the portable version file of the program as a ZIP file, because we haven't created an installer yet.
-Please unzip the "QuranTester.zip" file and go to the "QuranTester" folder and then run the program by opening the "QuranTester.exe" file.
