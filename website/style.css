@@ -1,0 +1,64 @@
+/* Style Sheet */
+
+/* Import Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700&display=swap');
+
+/* Font Family */
+body {
+  font-family: 'Almarai', sans-serif;
+}
+
+/* Layout */
+header, footer {
+  background-color: #333;
+  color: #fff;
+  padding: 1rem;
+  text-align: center;
+}
+
+nav {
+  background-color: #eee;
+  padding: 0.5rem;
+}
+
+nav a {
+  color: #333;
+  text-decoration: none;
+  margin-right: 1rem;
+}
+
+main {
+  max-width: 800px;
+  margin: auto;
+  padding: 1rem;
+}
+
+/* Headings */
+h1, h2 {
+  font-weight: bold;
+}
+
+/* Links */  
+a {
+  color: #003366;
+}
+
+/* Buttons */
+.btn {
+  display: inline-block;
+  background-color: #003366;
+  color: #fff;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;  
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+
+  nav a {
+    display: block;
+    margin: 0.2rem 0;
+  } 
+
+}
