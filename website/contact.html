@@ -28,11 +28,12 @@
         <h2>اتصل بنا</h2>
         <p>للاستفسارات أو الدعم الفني، يرجى التواصل معنا عبر ملء النموذج التالي::</p>
 
-        <form name="contact" method="post" netlify>
-            <input type="text" name="full-name" id="full_name" placeholder="الاسم الكامل" required><br>
-            <input type="email" name="email" id="email" placeholder="البريد الإلكتروني" required><br>
-            <input type="text" name="subject" id="subject" placeholder="الموضوع" required><br>
-            <input type="text" name="message" id="message" placeholder="الرسالة" required><br>
+        <form name="contact" method="post" data-netlify="true" data-netlify-recaptcha="true">
+            <input type="text" name="full-name" id="full_name" placeholder="الاسم الكامل:" required><br>
+            <input type="email" name="email" id="email" placeholder="البريد الإلكتروني:" required><br>
+            <input type="text" name="subject" id="subject" placeholder="الموضوع:" required><br>
+            <textarea name="message" id="message" placeholder="الرسالة:" required></textarea>
+            <div data-netlify-recaptcha="true"></div>
             <input type="submit" value="إرسال">
         </form>
 
