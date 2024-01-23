@@ -10,7 +10,9 @@
 
 ## Download and run
 Download the latest version from
+
 [here](https://github.com/ibrahim-ashraf/QuranTester/releases/download/v1.0/QuranTester_Portable.zip)
+
 The "QuranTester_Portable.zip" file will be downloaded to your device. Unzip the "QuranTester_Portable.zip" file, go into the "QuranTester" folder and click on the "QuranTester.exe" file to run the program.
 
 ## Get started
