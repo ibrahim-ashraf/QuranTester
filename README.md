@@ -5,7 +5,7 @@
 - Current version: 1.0
 - Developer: Ibrahim Ashraf
 - Initial release date: Monday, January 22, 2024 - Rajab 10, 1445
-- Last updated: 
+- Last updated: Monday, January 22, 2024 - Rajab 10, 1445
 - Copyright: ©2024 Ibrahim Ashraf. All rights reserved.
 
 ## Download and run
