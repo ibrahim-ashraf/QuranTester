@@ -1,0 +1,48 @@
+('E:\\My Drive\\Python\\QuranTester\\build\\QuranTester\\QuranTester.pkg',
+ {'BINARY': True,
+  'DATA': True,
+  'EXECUTABLE': True,
+  'EXTENSION': True,
+  'PYMODULE': True,
+  'PYSOURCE': True,
+  'PYZ': False,
+  'SPLASH': True},
+ [('PYZ-00.pyz',
+   'E:\\My Drive\\Python\\QuranTester\\build\\QuranTester\\PYZ-00.pyz',
+   'PYZ'),
+  ('struct',
+   'E:\\My '
+   'Drive\\Python\\QuranTester\\build\\QuranTester\\localpycs\\struct.pyc',
+   'PYMODULE'),
+  ('pyimod01_archive',
+   'E:\\My '
+   'Drive\\Python\\QuranTester\\build\\QuranTester\\localpycs\\pyimod01_archive.pyc',
+   'PYMODULE'),
+  ('pyimod02_importers',
+   'E:\\My '
+   'Drive\\Python\\QuranTester\\build\\QuranTester\\localpycs\\pyimod02_importers.pyc',
+   'PYMODULE'),
+  ('pyimod03_ctypes',
+   'E:\\My '
+   'Drive\\Python\\QuranTester\\build\\QuranTester\\localpycs\\pyimod03_ctypes.pyc',
+   'PYMODULE'),
+  ('pyimod04_pywin32',
+   'E:\\My '
+   'Drive\\Python\\QuranTester\\build\\QuranTester\\localpycs\\pyimod04_pywin32.pyc',
+   'PYMODULE'),
+  ('pyiboot01_bootstrap',
+   'C:\\Program '
+   'Files\\Python311\\Lib\\site-packages\\PyInstaller\\loader\\pyiboot01_bootstrap.py',
+   'PYSOURCE'),
+  ('pyi_rth_inspect',
+   'C:\\Program '
+   'Files\\Python311\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks\\pyi_rth_inspect.py',
+   'PYSOURCE'),
+  ('main', 'E:\\My Drive\\Python\\QuranTester\\main.py', 'PYSOURCE')],
+ True,
+ False,
+ False,
+ [],
+ None,
+ None,
+ None)
