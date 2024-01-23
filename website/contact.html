@@ -28,8 +28,8 @@
         <h2>اتصل بنا</h2>
         <p>للاستفسارات أو الدعم الفني، يرجى التواصل معنا عبر ملء النموذج التالي::</p>
 
-        <form name="contact" method="post" data-netlify="true" data-netlify-recaptcha="true">
-            <input type="text" name="full-name" id="full_name" placeholder="الاسم الكامل:" required><br>
+        <form name="contact" method="post" data-netlify="true" data-netlify-recaptcha="true" onsubmit="sendEmail()">
+            <input type="text" name="name" id="name" placeholder="الاسم الكامل:" required><br>
             <input type="email" name="email" id="email" placeholder="البريد الإلكتروني:" required><br>
             <input type="text" name="subject" id="subject" placeholder="الموضوع:" required><br>
             <textarea name="message" id="message" placeholder="الرسالة:" required></textarea>
@@ -43,7 +43,8 @@
 
     <footer>
         <p>© 2023 Ibrahim Ashraf. جميع الحقوق محفوظة.</p>
-</footer>
+    </footer>
 
+    <script src="script.js"></script>
 </body>
 </html>
