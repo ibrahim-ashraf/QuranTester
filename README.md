@@ -2,10 +2,16 @@
 
 ## Program information:
 - Name: QuranTester
-- Version: 1.0
+- Current version: 1.0
 - Developer: Ibrahim Ashraf
 - Initial release date: Monday, January 22, 2024 - Rajab 10, 1445
+- Last updated: 
 - Copyright: ©2024 Ibrahim Ashraf. All rights reserved.
+
+## Download and run
+Download the latest version from
+[here](https://github.com/ibrahim-ashraf/QuranTester/releases/download/v1.0/QuranTester_Portable.zip)
+The "QuranTester_Portable.zip" file will be downloaded to your device. Unzip the "QuranTester_Portable.zip" file, go into the "QuranTester" folder and click on the "QuranTester.exe" file to run the program.
 
 ## Get started
 You can follow the simple steps below to get started:
