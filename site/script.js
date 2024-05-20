@@ -101,9 +101,9 @@ function getRandomAyahNumber(randomSurahNumber, fromAyah1 = 1, toAyah1 = null, f
     return getRandomNumber(1, surahAyahRange);
   }
 
-  if (surahNumber === parseInt(fromSurah)) {
+  if (surahNumber === fromSurah) {
     return getRandomNumber(fromAyah1, toAyah1);
-  } else if (surahNumber === parseInt(toSurah)) {
+  } else if (surahNumber === toSurah) {
     return getRandomNumber(fromAyah2, toAyah2);
   } else {
     return getRandomNumber(1, surahAyahRange);
@@ -120,8 +120,8 @@ function createQuestion(questionNumber, surahNumber, ayahNumber) {
   return `س${questionNumber}: سورة ${surahName}: آية ${ayahNumber}: قال تعالى: "${ayahText.split(' ').slice(0, 5).join(' ')} ..."`;
 }
 
-function getAyahText(surahNumber, ayahNumber) {
-  const ayah = quranData.find(item => item.sura_no === surahNumber && item.aya_no === ayahNumber);
+function getAyahText(randomSurahNumber, ayahNumber) {
+  const ayah = quranData.find(item => item.sura_no === randomSurahNumber && item.aya_no === ayahNumber);
   return ayah ? ayah.aya_text_emlaey : '';
 }
 
