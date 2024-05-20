@@ -4,6 +4,7 @@ fetch('quran.json')
   .then(response => response.json())
   .then(data => {
     quranData = data;
+    console.log('Quran data loaded:', data);
   })
   .catch(error => console.error('Error loading Quran data:', error));
 
@@ -12,9 +13,11 @@ fetch('surahs_data.json')
   .then(response => response.json())
   .then(data => {
     const surahsData = data;
+    console.log('Surahs data loaded:', data);
 
     // وظيفة لإضافة خيارات السور إلى قوائم الاختيار
     function populateSurahOptions() {
+      console.log('populating surah options...');
       const fromSurahSelect = document.getElementById('fromSurah');
       const toSurahSelect = document.getElementById('toSurah');
 
