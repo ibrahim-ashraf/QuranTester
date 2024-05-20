@@ -20,7 +20,7 @@ fetch('surahs_data.json')
 
       for (const surahName in surahsData) {
         const option = document.createElement('option');
-        option.value = surahName.split(':')[0]; // الرقم الخاص بالسورة
+        option.value = surahName.split(': ')[0]; // الرقم الخاص بالسورة
         option.text = surahName; // اسم السورة
         fromSurahSelect.add(option);
         toSurahSelect.add(option.cloneNode(true));
