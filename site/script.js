@@ -48,7 +48,7 @@ function createTest() {
     // return;
   // }
 
-  // إنشاء قائمة الأسئلة
+  // الحصول على عنصر قائمة الأسئلة
   const questionsList = document.getElementById('questionsList');
 
   // مسح أي أسئلة قديمة
@@ -56,6 +56,7 @@ function createTest() {
 
   // إنشاء الأسئلة العشوائية
   const questions = [];
+  alert(`القيمة: ${questionsNumber}\nنوع البيانات: ${typeof questionsNumber}`)
   for (let i = 0; i < questionsNumber; i++) {
     // تعيين رقم السؤال
     let questionNumber = i + 1;
