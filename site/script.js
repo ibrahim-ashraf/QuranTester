@@ -4,7 +4,6 @@ fetch('quran.json')
   .then(response => response.json())
   .then(data => {
     quranData = data;
-    console.log('Quran data loaded:', data);
   })
   .catch(error => console.error('Error loading Quran data:', error));
 
@@ -13,11 +12,9 @@ fetch('surahs_data.json')
   .then(response => response.json())
   .then(data => {
     const surahsData = data;
-    console.log('Surahs data loaded:', data);
 
     // وظيفة لإضافة خيارات السور إلى قوائم الاختيار
     function populateSurahOptions() {
-      console.log('populating surah options...');
       const fromSurahSelect = document.getElementById('fromSurah');
       const toSurahSelect = document.getElementById('toSurah');
 
@@ -91,8 +88,14 @@ function getRandomSurahNumber(fromSurah, toSurah) {
   return surahNumbers[randomIndex];
 }
 
-  function getRandomAyahNumber(surahNumber, fromAyah1, toAyah1, fromAyah2, toAyah2) {
+function getRandomAyahNumber(surahNumber, fromAyah1 = 1, toAyah1 = null, fromAyah2 = 1, toAyah2 = null) {
   const surahAyahRange = surahsData[`${surahNumber}`];
+
+  // إذا لم يتم ملء حقول تحديد النطاق، اعتبر النطاق من 1 إلى عدد آيات السورة
+  if (!toAyah1 && !toAyah2) {
+    return getRandomNumber(1, surahAyahRange);
+  }
+
   if (surahNumber === parseInt(fromSurah)) {
     return getRandomNumber(fromAyah1, toAyah1);
   } else if (surahNumber === parseInt(toSurah)) {
