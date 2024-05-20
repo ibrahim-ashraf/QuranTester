@@ -43,8 +43,8 @@ function createTest() {
   const questionsNumber = document.getElementById('questionsNumber').value;
 
   // التحقق من الإدخالات
-  if (!fromSurah || !fromAyah1 || !toAyah1 || !toSurah || !fromAyah2 || !toAyah2 || !questionsNumber) {
-    alert('يرجى ملء جميع الحقول');
+  // if (!fromSurah || !fromAyah1 || !toAyah1 || !toSurah || !fromAyah2 || !toAyah2 || !questionsNumber) {
+  //   alert('يرجى ملء جميع الحقول');
     return;
   }
 
