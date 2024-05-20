@@ -31,7 +31,7 @@ fetch('surahs_data.json')
     }
 
     // استدعاء الوظيفة لإضافة خيارات السور عند تحميل الصفحة
-    window.onload = populateSurahOptions;
+    window.onload = populateSurahOptions();
   })
   .catch(error => console.error('Error loading surahs data:', error));
 
