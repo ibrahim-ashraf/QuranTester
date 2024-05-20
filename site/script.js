@@ -56,7 +56,7 @@ function createTest() {
 
   // إنشاء الأسئلة العشوائية
   const questions = [];
-  alert(`القيمة: ${questionsNumber}\nنوع البيانات: ${typeof questionsNumber}`)
+  alert(`القيمة: ${fromSurah}\nنوع البيانات: ${typeof fromSurah}`)
   for (let i = 0; i < questionsNumber; i++) {
     // تعيين رقم السؤال
     let questionNumber = i + 1;
