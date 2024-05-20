@@ -34,13 +34,13 @@ fetch('surahs_data.json')
 
 // وظيفة لإنشاء الاختبار
 function createTest() {
-  const fromSurah = document.getElementById('fromSurah').value;
-  const fromAyah1 = document.getElementById('fromAyah1').value;
-  const toAyah1 = document.getElementById('toAyah1').value;
-  const toSurah = document.getElementById('toSurah').value;
-  const fromAyah2 = document.getElementById('fromAyah2').value;
-  const toAyah2 = document.getElementById('toAyah2').value;
-  const questionsNumber = document.getElementById('questionsNumber').value;
+  const fromSurah = parseInt(document.getElementById('fromSurah').value);
+  const fromAyah1 = parseInt(document.getElementById('fromAyah1').value);
+  const toAyah1 = parseInt(document.getElementById('toAyah1').value);
+  const toSurah = parseInt(document.getElementById('toSurah').value);
+  const fromAyah2 = parseInt(document.getElementById('fromAyah2').value);
+  const toAyah2 = parseInt(document.getElementById('toAyah2').value);
+  const questionsNumber = parseInt(document.getElementById('questionsNumber').value);
 
   // التحقق من الإدخالات
   // if (!fromSurah || !fromAyah1 || !toAyah1 || !toSurah || !fromAyah2 || !toAyah2 || !questionsNumber) {
@@ -56,7 +56,7 @@ function createTest() {
 
   // إنشاء الأسئلة العشوائية
   const questions = [];
-  alert(`القيمة: ${fromSurah}\nنوع البيانات: ${typeof fromSurah}`)
+
   for (let i = 0; i < questionsNumber; i++) {
     // تعيين رقم السؤال
     let questionNumber = i + 1;
@@ -89,8 +89,9 @@ function getRandomSurahNumber(fromSurah, toSurah) {
   return surahNumbers[randomIndex];
 }
 
-function getRandomAyahNumber(surahNumber, fromAyah1 = 1, toAyah1 = null, fromAyah2 = 1, toAyah2 = null) {
-  const surahAyahRange = surahsData[`${surahNumber}`];
+function getRandomAyahNumber(randomSurahNumber, fromAyah1 = 1, toAyah1 = null, fromAyah2 = 1, toAyah2 = null) {
+  const surahAyahRange = surahsData[`${randomSurahNumber}`];
+  alert(surahAyahRange);
 
   // إذا لم يتم ملء حقول تحديد النطاق، اعتبر النطاق من 1 إلى عدد آيات السورة
   if (!toAyah1 && !toAyah2) {
