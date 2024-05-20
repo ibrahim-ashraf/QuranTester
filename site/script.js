@@ -7,11 +7,14 @@ fetch('quran.json')
   })
   .catch(error => console.error('Error loading Quran data:', error));
 
+// تعريف متغير surahsData في النطاق العالمي
+let surahsData;
+
 // قراءة بيانات السور من ملف JSON
 fetch('surahs_data.json')
   .then(response => response.json())
   .then(data => {
-    const surahsData = data;
+    surahsData = data;
 
     // وظيفة لإضافة خيارات السور إلى قوائم الاختيار
     function populateSurahOptions() {
@@ -90,8 +93,7 @@ function getRandomSurahNumber(fromSurah, toSurah) {
 }
 
 function getRandomAyahNumber(randomSurahNumber, fromAyah1 = 1, toAyah1 = null, fromAyah2 = 1, toAyah2 = null) {
-  // const surahAyahRange = surahsData[`${randomSurahNumber}`];
-  alert(typeof surahsData);
+  const surahAyahRange = surahsData[`${randomSurahNumber}`];
   alert(surahAyahRange);
 
   // إذا لم يتم ملء حقول تحديد النطاق، اعتبر النطاق من 1 إلى عدد آيات السورة
