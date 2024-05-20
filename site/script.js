@@ -45,8 +45,8 @@ function createTest() {
   // التحقق من الإدخالات
   // if (!fromSurah || !fromAyah1 || !toAyah1 || !toSurah || !fromAyah2 || !toAyah2 || !questionsNumber) {
   //   alert('يرجى ملء جميع الحقول');
-    return;
-  }
+    // return;
+  // }
 
   // إنشاء قائمة الأسئلة
   const questionsList = document.getElementById('questionsList');
