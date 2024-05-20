@@ -119,3 +119,7 @@ function getAyahText(surahNumber, ayahNumber) {
   const ayah = quranData.find(item => item.sura_no === surahNumber && item.aya_no === ayahNumber);
   return ayah ? ayah.aya_text_emlaey : '';
 }
+
+// ربط وظيفة createTest بزر "إنشاء اختبار"
+const createTestButton = document.getElementById('createTest');
+createTestButton.addEventListener('click', createTest);
