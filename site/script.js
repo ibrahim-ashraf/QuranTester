@@ -93,9 +93,9 @@ function getRandomSurahNumber(fromSurah, toSurah) {
 }
 
 function getRandomAyahNumber(randomSurahNumber, fromAyah1 = 1, toAyah1 = null, fromAyah2 = 1, toAyah2 = null) {
-  const surahAyahRange = surahsData[`${randomSurahNumber}`];
-  alert(typeof surahsData);
-  console.log(surahsData);
+  const randomSurahName = Object.keys(surahsData)[randomSurahNumber - 1];
+  const surahAyahRange = surahsData[randomSurahName];
+  alert(randomSurahName + surahAyahRange);
   // alert(`القيمة: ${surahAyahRange}\nنوع البيانات: ${typeof surahAyahRange}`);
   
   // إذا لم يتم ملء حقول تحديد النطاق، اعتبر النطاق من 1 إلى عدد آيات السورة
