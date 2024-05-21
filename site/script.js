@@ -1,5 +1,8 @@
-// قراءة بيانات القرآن الكريم من ملف JSON
+// تعريف متغيرات بيانات القرآن الكريم وبيانات السور
 let quranData;
+let surahsData;
+
+// قراءة بيانات القرآن الكريم من ملف JSON
 fetch('quran.json')
   .then(response => response.json())
   .then(data => {
@@ -7,37 +10,34 @@ fetch('quran.json')
   })
   .catch(error => console.error('Error loading Quran data:', error));
 
-// تعريف متغير surahsData في النطاق العالمي
-let surahsData;
-
 // قراءة بيانات السور من ملف JSON
 fetch('surahs_data.json')
   .then(response => response.json())
   .then(data => {
     surahsData = data;
-
-    // وظيفة لإضافة خيارات السور إلى قوائم الاختيار
-    function populateSurahOptions() {
-      const fromSurahSelect = document.getElementById('fromSurah');
-      const toSurahSelect = document.getElementById('toSurah');
-
-      for (const surahName in surahsData) {
-        const option = document.createElement('option');
-        option.value = surahName.split(': ')[0]; // الرقم الخاص بالسورة
-        option.text = surahName; // اسم السورة
-        fromSurahSelect.add(option);
-        toSurahSelect.add(option.cloneNode(true));
-      }
-
-      // تعيين القيم الافتراضية لنطاق السور
-      fromSurahSelect.value = '1';
-      toSurahSelect.value = '114';
-    }
-
-    // استدعاء الوظيفة لإضافة خيارات السور عند تحميل الصفحة
-    window.onload = populateSurahOptions();
   })
   .catch(error => console.error('Error loading surahs data:', error));
+
+// وظيفة لإضافة خيارات السور إلى قوائم الاختيار
+function populateSurahOptions() {
+  const fromSurahSelect = document.getElementById('fromSurah');
+  const toSurahSelect = document.getElementById('toSurah');
+
+  for (const surahName in surahsData) {
+    const option = document.createElement('option');
+    option.value = surahName.split(': ')[0]; // الرقم الخاص بالسورة
+    option.text = surahName; // اسم السورة
+    fromSurahSelect.add(option);
+    toSurahSelect.add(option.cloneNode(true));
+  }
+
+  // تعيين القيم الافتراضية لنطاق السور
+  fromSurahSelect.value = '1';
+  toSurahSelect.value = '114';
+}
+
+// استدعاء الوظيفة لإضافة خيارات السور عند تحميل الصفحة
+window.onload = populateSurahOptions();
 
 // وظيفة لإنشاء الاختبار
 function createTest() {
@@ -91,6 +91,7 @@ function getRandomSurahNumber(fromSurah, toSurah) {
   const surahNumbers = [];
   for (let i = fromSurah; i <= toSurah; i++) {
     surahNumbers.push(i);
+    alert(i);
   }
   const randomIndex = Math.floor(Math.random() * surahNumbers.length);
   return surahNumbers[randomIndex];
