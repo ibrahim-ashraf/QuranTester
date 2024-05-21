@@ -37,7 +37,7 @@ function populateSurahOptions() {
 }
 
 // استدعاء الوظيفة لإضافة خيارات السور عند تحميل الصفحة
-window.onload = populateSurahOptions();
+window.onload = populateSurahOptions;
 
 // وظيفة لإنشاء الاختبار
 function createTest() {
