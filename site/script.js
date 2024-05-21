@@ -30,9 +30,8 @@ fetch('surahs_data.json')
       }
 
       // تعيين القيم الافتراضية لنطاق السور
-      alert(typeof fromSurahSelect.value);
-      fromSurahSelect.value = 1;
-      toSurahSelect.value = 114;
+      fromSurahSelect.value = '1';
+      toSurahSelect.value = '114';
     }
 
     // استدعاء الوظيفة لإضافة خيارات السور عند تحميل الصفحة
