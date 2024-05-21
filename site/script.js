@@ -123,7 +123,7 @@ function getRandomNumber(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-function createQuestion(questionNumber, surahNumber, randomAyahNumber) {
+function createQuestion(questionNumber, randomSurahNumber, randomAyahNumber) {
   const surahName = Object.keys(surahsData).find(key => key.startsWith(randomSurahNumber)).split(' ').slice(2);
   const ayahText = getAyahText(randomSurahNumber, randomAyahNumber); // تنفيذ هذه الوظيفة لاحقًا
   return `س${questionNumber}: سورة ${surahName}: آية ${randomAyahNumber}: قال تعالى: "${ayahText.split(' ').slice(0, 5).join(' ')} ..."`;
