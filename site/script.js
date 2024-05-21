@@ -94,6 +94,7 @@ function getRandomSurahNumber(fromSurah, toSurah) {
 
 function getRandomAyahNumber(randomSurahNumber, fromAyah1 = 1, toAyah1 = null, fromAyah2 = 1, toAyah2 = null) {
   const surahAyahRange = surahsData[`${randomSurahNumber}`];
+  alert(typeof surahsData);
   console.log(surahsData);
   // alert(`القيمة: ${surahAyahRange}\nنوع البيانات: ${typeof surahAyahRange}`);
   
