@@ -28,6 +28,10 @@ fetch('surahs_data.json')
         fromSurahSelect.add(option);
         toSurahSelect.add(option.cloneNode(true));
       }
+
+      // تعيين القيم الافتراضية لنطاق السور
+      fromSurahSelect.value = 1;
+      toSurahSelect.value = 114;
     }
 
     // استدعاء الوظيفة لإضافة خيارات السور عند تحميل الصفحة
@@ -45,11 +49,11 @@ function createTest() {
   const toAyah2 = parseInt(document.getElementById('toAyah2').value);
   const questionsNumber = parseInt(document.getElementById('questionsNumber').value);
 
-  // التحقق من الإدخالات
-  // if (!fromSurah || !fromAyah1 || !toAyah1 || !toSurah || !fromAyah2 || !toAyah2 || !questionsNumber) {
-  //   alert('يرجى ملء جميع الحقول');
-    // return;
-  // }
+  // التحقق من ملء حقل عدد الأسئلة
+  if (!questionsNumber) {
+    alert('يرجى كتابة عدد الأسئلة.');
+    return;
+  }
 
   // الحصول على عنصر قائمة الأسئلة
   const questionsList = document.getElementById('questionsList');
