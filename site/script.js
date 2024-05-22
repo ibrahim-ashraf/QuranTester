@@ -108,9 +108,6 @@ function createTest() {
     questionsList.appendChild(li);
   }
 
-  // عرض الأسئلة في قائمة الأسئلة
-  questionsList.innerHTML = questions.join('<br>');
-
   // عرض رسالة نجاح
   alert('تم إنشاء الاختبار بنجاح!');
 }
