@@ -62,14 +62,13 @@ function getSurahsNames(surahsData) {
 
 // وظيفة لإنشاء الاختبار
 function createTest() {
-  const fromSurah = document.getElementById('fromSurah').value;
-  const fromAyah1 = document.getElementById('fromAyah1').value;
-  alert(parseInt(fromAyah1));
-  const toAyah1 = document.getElementById('toAyah1').value;
-  const toSurah = document.getElementById('toSurah').value;
-  const fromAyah2 = document.getElementById('fromAyah2').value;
-  const toAyah2 = document.getElementById('toAyah2').value;
-  const questionsNumber = document.getElementById('questionsNumber').value;
+  const fromSurah = parseInt(document.getElementById('fromSurah').value);
+  const fromAyah1 = parseInt(document.getElementById('fromAyah1').value);
+  const toAyah1 = parseInt(document.getElementById('toAyah1').value);
+  const toSurah = parseInt(document.getElementById('toSurah').value);
+  const fromAyah2 = parseInt(document.getElementById('fromAyah2').value);
+  const toAyah2 = parseInt(document.getElementById('toAyah2').value);
+  const questionsNumber = parseInt(document.getElementById('questionsNumber').value);
 
   // التحقق من ملء حقل عدد الأسئلة
   if (!questionsNumber) {
@@ -91,7 +90,7 @@ function createTest() {
     let questionNumber = i + 1;
 
     // اختيار سورة عشوائية ضمن النطاق المحدد وتخزين رقمها
-    const randomSurahNumber = getRandomSurahNumber(parseInt(fromSurah), parseInt(toSurah));
+    const randomSurahNumber = getRandomSurahNumber(fromSurah, toSurah);
 
     // الحصول على معلومات السورة المختارة عشوائيا: (اسمها الكامل برقمها، اسمها فقط، عدد آياتها)
     const randomSurahFullName = surahsFullNames[randomSurahNumber - 1]
@@ -99,7 +98,7 @@ function createTest() {
     const randomSurahAyahsNumbers = surahsAyahsNumbers[randomSurahNumber - 1]
 
     // اختيار رقم آية عشوائي ضمن النطاق المحدد للسورة العشوائية
-    const randomAyahNumber = getRandomAyahNumber(randomSurahNumber, randomSurahAyahsNumbers, parseInt(fromSurah), parseInt(toSurah), parseInt(fromAyah1), parseInt(toAyah1), parseInt(fromAyah2), parseInt(toAyah2));
+    const randomAyahNumber = getRandomAyahNumber(randomSurahNumber, randomSurahAyahsNumbers, fromSurah, toSurah, fromAyah1, toAyah1, fromAyah2, toAyah2);
 
     // إنشاء السؤال واضافته إلى قائمة الأسئلة
     const question = createQuestion(questionNumber, randomSurahNumber, randomAyahNumber, randomSurahName);
@@ -124,8 +123,6 @@ function getRandomSurahNumber(fromSurah, toSurah) {
 }
 
 function getRandomAyahNumber(randomSurahNumber, randomSurahAyahsNumber, fromSurah, toSurah, fromAyah1, toAyah1, fromAyah2, toAyah2) {
-  alert(fromSurah);
-  alert(typeof fromSurah);
   // تحديد نطاق الآيات إذا كانت السورة المختارة هي المحددة في حقل "من سورة"
   if (randomSurahNumber === fromSurah) {
     if (!fromAyah1) {
