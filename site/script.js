@@ -131,6 +131,7 @@ function getRandomAyahNumber(randomSurahNumber, randomSurahAyahsNumber, fromAyah
     if (!toAyah1) {
       toAyah1 = randomSurahAyahsNumber;  // تعيين آية النهاية على آخر آية في السورة إذا لم يتم تحديدها
     }
+    alert(fromAyah1, toAyah1);
     return getRandomNumber(fromAyah1, toAyah1); // توليد رقم آية عشوائي بين النطاق الذي حدده المستخدم
   } else if (randomSurahNumber === toSurah) {
     if (!fromAyah2) {
