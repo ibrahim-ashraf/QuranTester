@@ -123,7 +123,7 @@ function getRandomSurahNumber(fromSurah, toSurah) {
   return surahNumbers[randomIndex];
 }
 
-function getRandomAyahNumber(randomSurahNumber, randomSurahAyahsNumber, fromAyah1, toAyah1, fromAyah2, toAyah2) {
+function getRandomAyahNumber(randomSurahNumber, randomSurahAyahsNumber, fromSurah, toSurah, fromAyah1, toAyah1, fromAyah2, toAyah2) {
   alert(fromSurah);
   alert(typeof fromSurah);
   // تحديد نطاق الآيات إذا كانت السورة المختارة هي المحددة في حقل "من سورة"
