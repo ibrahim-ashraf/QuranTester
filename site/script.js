@@ -39,8 +39,21 @@ function populateSurahOptions() {
   toSurahSelect.value = '114';
 }
 
-    // استدعاء الوظيفة لإضافة خيارات السور عند تحميل الصفحة
-    // window.onload = populateSurahOptions();
+// إنشاء ثلاث مصفوفات: (أسماء السور بأرقامها، أسماء الصور فقط، عدد آيات السور)
+const surahsFullNames = Object.keys(surahsData);
+const surahsNames = getSurahsNames(surahsData);
+const surahsAyahsNumbers = Object.values(surahsData);
+
+// دالة للحصول على أسماء السور
+function getSurahsNames(surahsData) {
+  const surahsNames = [];
+
+  for (let key in surahsData) {
+    let surahName = key.split(' ').slice(2);
+    surahsNames.push(surahName);
+  }
+  return surahsNames;
+}
 
 // وظيفة لإنشاء الاختبار
 function createTest() {
@@ -71,14 +84,19 @@ function createTest() {
     // تعيين رقم السؤال
     let questionNumber = i + 1;
 
-    // اختيار سورة عشوائية ضمن النطاق المحدد
+    // اختيار سورة عشوائية ضمن النطاق المحدد وتخزين رقمها
     const randomSurahNumber = getRandomSurahNumber(fromSurah, toSurah);
 
+    // الحصول على معلومات السورة المختارة عشوائيا: (اسمها الكامل برقمها، اسمها فقط، عدد آياتها)
+    const randomSurahFullName = surahsFullNames[randomSurahNumber - 1]
+    const randomSurahName = surahsNames[randomSurahNumber - 1]
+    const randomSurahAyahsNumbers = surahsAyahsNumbers[randomSurahNumber - 1]
+
     // اختيار رقم آية عشوائي ضمن النطاق المحدد للسورة العشوائية
-    const randomAyahNumber = getRandomAyahNumber(randomSurahNumber, fromAyah1, toAyah1, fromAyah2, toAyah2);
+    const randomAyahNumber = getRandomAyahNumber(randomSurahNumber, randomSurahAyahsNumbers, fromAyah1, toAyah1, fromAyah2, toAyah2);
 
     // إنشاء السؤال واضافته إلى قائمة الأسئلة
-    const question = createQuestion(questionNumber, randomSurahNumber, randomAyahNumber);
+    const question = createQuestion(questionNumber, randomSurahNumber, randomAyahNumber, randomSurahName);
     questions.push(question);
   }
 
@@ -99,18 +117,14 @@ function getRandomSurahNumber(fromSurah, toSurah) {
   return surahNumbers[randomIndex];
 }
 
-function getRandomAyahNumber(randomSurahNumber, fromAyah1, toAyah1, fromAyah2, toAyah2) {
-  // الحصول على اسم السورة من القائمة بناءً على الرقم (مع الأخذ بعين الاعتبار أن السور تبدأ من 1 وليس 0)
-  const randomSurahName = Object.keys(surahsData)[randomSurahNumber - 1];
-  const surahAyahRange = surahsData[randomSurahName];
-
+function getRandomAyahNumber(randomSurahNumber, randomSurahAyahsNumber, fromAyah1, toAyah1, fromAyah2, toAyah2) {
   // تحديد نطاق الآيات إذا كانت السورة المختارة هي المحددة في حقل "من سورة"
   if (randomSurahNumber === fromSurah) {
     if (!fromAyah1) {
       fromAyah1 = 1; // تعيين آية البداية على 1 إذا لم يتم تحديدها
     }
     if (!toAyah1) {
-      toAyah1 = surahAyahRange;  // تعيين آية النهاية على آخر آية في السورة إذا لم يتم تحديدها
+      toAyah1 = randomSurahAyahsNumber;  // تعيين آية النهاية على آخر آية في السورة إذا لم يتم تحديدها
     }
     return getRandomNumber(fromAyah1, toAyah1); // توليد رقم آية عشوائي بين النطاق الذي حدده المستخدم
   } else if (randomSurahNumber === toSurah) {
@@ -118,11 +132,11 @@ function getRandomAyahNumber(randomSurahNumber, fromAyah1, toAyah1, fromAyah2, t
       fromAyah2 = 1;
     }
     if (!toAyah2) {
-      toAyah2 = surahAyahRange;
+      toAyah2 = randomSurahAyahsNumber;
     }
     return getRandomNumber(fromAyah2, toAyah2);
   } else {
-    return getRandomNumber(1, surahAyahRange);
+    return getRandomNumber(1, randomSurahAyahsNumber);
   }
 }
 
@@ -130,14 +144,13 @@ function getRandomNumber(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-function createQuestion(questionNumber, randomSurahNumber, randomAyahNumber) {
-  const surahName = Object.keys(surahsData).find(key => key.startsWith(randomSurahNumber)).split(' ').slice(2);
+function createQuestion(questionNumber, randomSurahNumber, randomAyahNumber, randomSurahName) {
   const ayahText = getAyahText(randomSurahNumber, randomAyahNumber); // تنفيذ هذه الوظيفة لاحقًا
-  return `س${questionNumber}: سورة ${surahName}: آية ${randomAyahNumber}: قال تعالى: "${ayahText.split(' ').slice(0, 5).join(' ')} ..."`;
+  return `س${questionNumber}: سورة ${randomSurahName}: آية ${randomAyahNumber}: قال تعالى: "${ayahText.split(' ').slice(0, 5).join(' ')}"`;
 }
 
 function getAyahText(randomSurahNumber, randomAyahNumber) {
-  const ayah = quranData.find(item => item.sura_no === randomSurahNumber && item.aya_no === randomAyahNumber);
+  const ayah = quranData.find(aya => aya.sura_no === randomSurahNumber && aya.aya_no === randomAyahNumber);
   return ayah ? ayah.aya_text_emlaey : '';
 }
 
