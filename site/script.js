@@ -62,9 +62,9 @@ function getSurahsNames(surahsData) {
 
 // وظيفة لإنشاء الاختبار
 function createTest() {
-  const fromSurahSelect = document.getElementById('fromSurah');
   const fromSurah = document.getElementById('fromSurah').value;
   const fromAyah1 = document.getElementById('fromAyah1').value;
+  alert(parseInt(fromAyah1));
   const toAyah1 = document.getElementById('toAyah1').value;
   const toSurah = document.getElementById('toSurah').value;
   const fromAyah2 = document.getElementById('fromAyah2').value;
