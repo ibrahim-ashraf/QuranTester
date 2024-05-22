@@ -123,6 +123,8 @@ function getRandomSurahNumber(fromSurah, toSurah) {
 }
 
 function getRandomAyahNumber(randomSurahNumber, randomSurahAyahsNumber, fromAyah1, toAyah1, fromAyah2, toAyah2) {
+  alert(fromAyah1, toAyah1, fromAyah2, toAyah2);
+  alert(typeof fromAyah1, typeof toAyah1, typeof fromAyah2, typeof toAyah2)
   // تحديد نطاق الآيات إذا كانت السورة المختارة هي المحددة في حقل "من سورة"
   if (randomSurahNumber === fromSurah) {
     if (!fromAyah1) {
@@ -131,7 +133,6 @@ function getRandomAyahNumber(randomSurahNumber, randomSurahAyahsNumber, fromAyah
     if (!toAyah1) {
       toAyah1 = randomSurahAyahsNumber;  // تعيين آية النهاية على آخر آية في السورة إذا لم يتم تحديدها
     }
-    alert(fromAyah1, toAyah1);
     return getRandomNumber(fromAyah1, toAyah1); // توليد رقم آية عشوائي بين النطاق الذي حدده المستخدم
   } else if (randomSurahNumber === toSurah) {
     if (!fromAyah2) {
