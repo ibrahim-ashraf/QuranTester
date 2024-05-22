@@ -2,6 +2,11 @@
 let quranData;
 let surahsData;
 
+// تعريف متغيرات مصفوفات أسماء السور وعدد آياتها
+let surahsFullNames;
+let surahsNames;
+let surahsAyahsNumbers;
+
 // قراءة بيانات القرآن الكريم من ملف JSON
 fetch('quran.json')
   .then(response => response.json())
@@ -20,9 +25,9 @@ fetch('surahs_data.json')
     populateSurahOptions();
 
     // إنشاء ثلاث مصفوفات: (أسماء السور بأرقامها، أسماء الصور فقط، عدد آيات السور)
-    const surahsFullNames = Object.keys(surahsData);
-    const surahsNames = getSurahsNames(surahsData);
-    const surahsAyahsNumbers = Object.values(surahsData);
+    surahsFullNames = Object.keys(surahsData);
+    surahsNames = getSurahsNames(surahsData);
+    surahsAyahsNumbers = Object.values(surahsData);
   })
   .catch(error => console.error('Error loading surahs data:', error));
 
