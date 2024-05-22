@@ -98,7 +98,7 @@ function createTest() {
     const randomSurahAyahsNumbers = surahsAyahsNumbers[randomSurahNumber - 1]
 
     // اختيار رقم آية عشوائي ضمن النطاق المحدد للسورة العشوائية
-    const randomAyahNumber = getRandomAyahNumber(randomSurahNumber, randomSurahAyahsNumbers, parseInt(fromAyah1), parseInt(toAyah1), parseInt(fromAyah2), parseInt(toAyah2));
+    const randomAyahNumber = getRandomAyahNumber(randomSurahNumber, randomSurahAyahsNumbers, parseInt(fromSurah), parseInt(toSurah), parseInt(fromAyah1), parseInt(toAyah1), parseInt(fromAyah2), parseInt(toAyah2));
 
     // إنشاء السؤال واضافته إلى قائمة الأسئلة
     const question = createQuestion(questionNumber, randomSurahNumber, randomAyahNumber, randomSurahName);
