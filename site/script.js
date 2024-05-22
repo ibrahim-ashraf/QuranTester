@@ -104,7 +104,7 @@ function createTest() {
     const question = createQuestion(questionNumber, randomSurahNumber, randomAyahNumber, randomSurahName);
     questions.push(question);
     const listItem = document.createElement('li');
-    listItem.text(question);
+    listItem.text = question;
     questionsList.add(listItem);
   }
 
