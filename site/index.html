@@ -78,9 +78,16 @@
     </main>
     
     <footer>
+        <p id="lastModified"></p>
         <p>&copy; 2024 مختبر القرآن الكريم. جميع الحقوق محفوظة.</p>
     </footer>
     
     <script src="script.js"></script>
+
+    <script>
+        window.onload = function() {
+            document.getElementById('lastModified').innerHTML = `آخر تحديث: ${document.lastModified}`;
+        }
+    </script>
 </body>
 </html>
