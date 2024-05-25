@@ -52,24 +52,20 @@
             <h2>إنشاء اختبار جديد</h2>
             
             <form>
-                <label for="fromSurah">من سورة:</label>
+                <label for="fromSurah">من سورة: </label>
                 <select id="fromSurah"></select>
 
-                <label for="fromAyah1">من آية:</label>
-                <input type="number" id="fromAyah1" min="1">
-                <label for="toAyah1">إلى آية:</label>
-                <input type="number" id="toAyah1" min="1">
-                <label for="toSurah">إلى سورة:</label>
+                <input type="number" id="fromAyah1" min="1" placeholder="من آية: ">
+                <input type="number" id="toAyah1" min="1" placeholder="إلى آية: ">
+
+                <label for="toSurah">إلى سورة: </label>
                 <select id="toSurah"></select>
 
-                <label for="fromAyah2">من آية:</label>
-                <input type="number" id="fromAyah2" min="1">
-                <label for="toAyah2">إلى آية:</label>
-                <input type="number" id="toAyah2" min="1">
+                <input type="number" id="fromAyah2" min="1" placeholder="من آية: ">
+                <input type="number" id="toAyah2" min="1" placeholder="إلى آية: ">
 
-                <label for="questionsNumber">عدد الأسئلة:</label>
-                <input type="number" id="questionsNumber" min="1">
-            
+                <input type="number" id="questionsNumber" min="1" placeholder="عدد الأسئلة: ">
+
                 <button type="button" id="createTest">إنشاء اختبار</button>
             </form>
 
