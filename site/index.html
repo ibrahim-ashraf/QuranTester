@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
     <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -53,18 +53,18 @@
             
             <form>
                 <label for="fromSurah">من سورة: </label>
-                <select id="fromSurah"></select>
+                <select id="fromSurah"></select><br>
 
-                <input type="number" id="fromAyah1" min="1" placeholder="من آية: ">
-                <input type="number" id="toAyah1" min="1" placeholder="إلى آية: ">
+                <input type="number" id="fromAyah1" min="1" placeholder="من آية: "><br>
+                <input type="number" id="toAyah1" min="1" placeholder="إلى آية: "><br>
 
                 <label for="toSurah">إلى سورة: </label>
-                <select id="toSurah"></select>
+                <select id="toSurah"></select><br>
 
-                <input type="number" id="fromAyah2" min="1" placeholder="من آية: ">
-                <input type="number" id="toAyah2" min="1" placeholder="إلى آية: ">
+                <input type="number" id="fromAyah2" min="1" placeholder="من آية: "><br>
+                <input type="number" id="toAyah2" min="1" placeholder="إلى آية: "><br>
 
-                <input type="number" id="questionsNumber" min="1" placeholder="عدد الأسئلة: ">
+                <input type="number" id="questionsNumber" min="1" placeholder="عدد الأسئلة: "><br>
 
                 <button type="button" id="createTest">إنشاء اختبار</button>
             </form>
@@ -72,9 +72,8 @@
             <ol id="questionsList"></ol>
         </section>
     </main>
-    
+
     <footer>
-        <p id="lastModified"></p>
         <p>&copy; 2024 مختبر القرآن الكريم. جميع الحقوق محفوظة.</p>
     </footer>
     
