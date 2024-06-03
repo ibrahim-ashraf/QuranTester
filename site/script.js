@@ -60,6 +60,32 @@ function getSurahsNames(surahsData) {
   return surahsNames;
 }
 
+function setFromSurahRange() {
+  const fromSurahSelect = document.getElementById('fromSurah');
+  const fromAyah1 = document.getElementById('fromAyah1');
+  const toAyah1 = document.getElementById('toAyah1');
+
+  const fromSurahValue = fromSurahSelect.value;
+  const fromSurahFirstAyah = 1;
+  const fromSurahLastAyah = surahsAyahsNumbers[fromSurahValue - 1];
+
+  fromAyah1.value = fromSurahFirstAyah;
+  toAyah1.value = fromSurahLastAyah;
+}
+
+function setToSurahRange() {
+  const toSurahSelect = document.getElementById('toSurah');
+  const fromAyah2 = document.getElementById('fromAyah2');
+  const toAyah2 = document.getElementById('toAyah2');
+
+  const toSurahValue = toSurahSelect.value;
+  const toSurahFirstAyah = 1;
+  const toSurahLastAyah = surahsAyahsNumbers[toSurahValue - 1];
+
+  fromAyah2.value = toSurahFirstAyah;
+  toAyah2.value = toSurahLastAyah;
+}
+
 // وظيفة لإنشاء الاختبار
 function createTest() {
   const fromSurah = parseInt(document.getElementById('fromSurah').value);
@@ -158,6 +184,12 @@ function getAyahText(randomSurahNumber, randomAyahNumber) {
   const ayah = quranData.find(aya => aya.sura_no === randomSurahNumber && aya.aya_no === randomAyahNumber);
   return ayah ? ayah.aya_text_emlaey : '';
 }
+
+const fromSurahSelect = document.getElementById('fromSurah');
+const toSurahSelect = document.getElementById('toSurah');
+
+fromSurahSelect.addEventListener('change', setFromSurahRange);
+toSurahSelect.addEventListener('change', setToSurahRange);
 
 // ربط وظيفة createTest بزر "إنشاء اختبار"
 const createTestButton = document.getElementById('createTest');
