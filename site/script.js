@@ -59,14 +59,17 @@ function populateSurahOptions() {
 
 // دالة لتعيين النطاقات الافتراضية للسور
 function setSurahsDefaultRanges() {
+  // الحصول على القيمة الافتراضية للسور المحددة افتراضيا
   const fromSurahValue = fromSurahSelect.value;
   const toSurahValue = toSurahSelect.value;
 
+// الحصول على أرقام الآيات الأولى والأخيرة للسور المحددة افتراضيا
   const fromSurahFristAyahNumber = 1;
   const fromSurahLastAyahNumber = surahsAyahsNumbers[fromSurahValue - 1];
   const toSurahFristAyahNumber = 1;
   const toSurahLastAyahNumber = surahsAyahsNumbers[toSurahValue - 1];
 
+  // تعيين أرقام الآيات التي تم الحصول عليها في حقول نطاقات الآيات للسور المحددة افتراضيا
   fromAyah1.value = fromSurahFristAyahNumber;
   toAyah1.value = fromSurahLastAyahNumber;
   fromAyah2.value = toSurahFristAyahNumber;
@@ -85,17 +88,21 @@ function getSurahsNames(surahsData) {
 }
 
 function setSelectedSurahRange(event) {
+  // الحصول على عنصر القائمة المنسدلة للسورة المحددة، ومعرفه، وقيمته
   const selectedSurahDropdown = event.target;
   const selectedSurahDropdownID = selectedSurahDropdown.id;
   const selectedSurahDropdownValue = selectedSurahDropdown.value;
 
+  // الحصول على رقم الآية الأولى والأخيرة للسورة المحددة
   const surahFristAyahNumber = 1;
   const surahLastAyahNumber = surahsAyahsNumbers[selectedSurahDropdownValue - 1];
 
-  if (selectedSurahDropdownID === 'fromSurah') {
+  if (selectedSurahDropdownID === 'fromSurah') { // إذا كانت القائمة المنسدلة هي قائمة سورة البداية
+    // تعيين نطاق الآيات في حقول نطاق آيات سورة البداية
     fromAyah1.value = surahFristAyahNumber;
     toAyah1.value = surahLastAyahNumber;
-  } else if (selectedSurahDropdownID === 'toSurah') {
+  } else if (selectedSurahDropdownID === 'toSurah') { // إذا كانت القائمة المنسدلة هي قائمة سورة النهاية
+    // تعيين نطاق الآيات في حقول نطاق آيات سورة النهاية
     fromAyah2.value = surahFristAyahNumber;
     toAyah2.value = surahLastAyahNumber;
   }
