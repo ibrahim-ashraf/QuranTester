@@ -7,6 +7,14 @@ let surahsFullNames;
 let surahsNames;
 let surahsAyahsNumbers;
 
+// الحصول على عناصر تحديد السور ونطاقات الآيات
+const fromSurahSelect = document.getElementById('fromSurah');
+const fromAyah1 = document.getElementById('fromAyah1');
+const toAyah1 = document.getElementById('toAyah1');
+const toSurahSelect = document.getElementById('toSurah');
+const fromAyah2 = document.getElementById('fromAyah2');
+const toAyah2 = document.getElementById('toAyah2');
+
 // قراءة بيانات القرآن الكريم من ملف JSON
 fetch('quran.json')
   .then(response => response.json())
@@ -21,24 +29,20 @@ fetch('surahs_data.json')
   .then(data => {
     surahsData = data;
 
-    // استدعاء دالة إضافة خيارات السور إلى القوائم المنسدلة
+    // استدعاء دالة إضافة خيارات السور إلى القوائم المنسدلة، ودالة تعيين النطاقات الافتراضية لآيات السور
     populateSurahOptions();
+    setSurahsDefaultRanges();
 
     // إنشاء ثلاث مصفوفات: (أسماء السور بأرقامها، أسماء الصور فقط، عدد آيات السور)
     surahsFullNames = Object.keys(surahsData);
     surahsNames = getSurahsNames(surahsData);
     surahsAyahsNumbers = Object.values(surahsData);
 
-    setFromSurahRange();
-    setToSurahRange();
   })
   .catch(error => console.error('Error loading surahs data:', error));
 
 // وظيفة لإضافة خيارات السور إلى قوائم الاختيار
 function populateSurahOptions() {
-  const fromSurahSelect = document.getElementById('fromSurah');
-  const toSurahSelect = document.getElementById('toSurah');
-
   for (const surahName in surahsData) {
     const option = document.createElement('option');
     option.value = surahName.split(': ')[0]; // الرقم الخاص بالسورة
@@ -52,6 +56,14 @@ function populateSurahOptions() {
   toSurahSelect.value = '114';
 }
 
+// دالة لتعيين النطاقات الافتراضية للسور
+function setSurahsDefaultRanges() {
+  fromAyah1.value = 1;
+  toAyah1.value = 7;
+  fromAyah2.value = 1;
+  toAyah2.value = 6;
+}
+
 // دالة للحصول على أسماء السور
 function getSurahsNames(surahsData) {
   const surahsNames = [];
@@ -63,30 +75,15 @@ function getSurahsNames(surahsData) {
   return surahsNames;
 }
 
-function setFromSurahRange() {
-  const fromSurahSelect = document.getElementById('fromSurah');
-  const fromAyah1 = document.getElementById('fromAyah1');
-  const toAyah1 = document.getElementById('toAyah1');
-
-  const fromSurahValue = fromSurahSelect.value;
-  const fromSurahFirstAyah = 1;
+function setSelectedSurahRange(event) {
+  const selectedSurahDropdown = event.target;
+  const selectedSurahDropdownID = selectedSurahDropdown.id;
+  alert(selectedSurahDropdownID);
+  const selectedSurahValue = selectedSurahDropdown.value;
   const fromSurahLastAyah = surahsAyahsNumbers[fromSurahValue - 1];
 
-  fromAyah1.value = fromSurahFirstAyah;
-  toAyah1.value = fromSurahLastAyah;
-}
-
-function setToSurahRange() {
-  const toSurahSelect = document.getElementById('toSurah');
-  const fromAyah2 = document.getElementById('fromAyah2');
-  const toAyah2 = document.getElementById('toAyah2');
-
-  const toSurahValue = toSurahSelect.value;
-  const toSurahFirstAyah = 1;
-  const toSurahLastAyah = surahsAyahsNumbers[toSurahValue - 1];
-
-  fromAyah2.value = toSurahFirstAyah;
-  toAyah2.value = toSurahLastAyah;
+  // fromAyah1.value = fromSurahFirstAyah;
+  // toAyah1.value = fromSurahLastAyah;
 }
 
 // وظيفة لإنشاء الاختبار
@@ -188,11 +185,8 @@ function getAyahText(randomSurahNumber, randomAyahNumber) {
   return ayah ? ayah.aya_text_emlaey : '';
 }
 
-const fromSurahSelect = document.getElementById('fromSurah');
-const toSurahSelect = document.getElementById('toSurah');
-
-fromSurahSelect.addEventListener('change', setFromSurahRange);
-toSurahSelect.addEventListener('change', setToSurahRange);
+fromSurahSelect.addEventListener('change', setSelectedSurahRange);
+toSurahSelect.addEventListener('change', setSelectedSurahRange);
 
 // ربط وظيفة createTest بزر "إنشاء اختبار"
 const createTestButton = document.getElementById('createTest');
