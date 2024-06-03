@@ -58,10 +58,18 @@ function populateSurahOptions() {
 
 // دالة لتعيين النطاقات الافتراضية للسور
 function setSurahsDefaultRanges() {
-  fromAyah1.value = 1;
-  toAyah1.value = 7;
-  fromAyah2.value = 1;
-  toAyah2.value = 6;
+  const fromSurahValue = fromSurahSelect.value;
+  const toSurahValue = toSurahSelect.value;
+
+  const fromSurahFristAyahNumber = 1;
+  const fromSurahLastAyahNumber = surahsAyahsNumbers[fromSurahValue - 1];
+  const toSurahFristAyahNumber = 1;
+  const toSurahLastAyahNumber = surahsAyahsNumbers[toSurahValue - 1];
+
+  fromAyah1.value = fromSurahFristAyahNumber;
+  toAyah1.value = fromSurahLastAyahNumber;
+  fromAyah2.value = toSurahFristAyahNumber;
+  toAyah2.value = toSurahLastAyahNumber;
 }
 
 // دالة للحصول على أسماء السور
@@ -78,12 +86,18 @@ function getSurahsNames(surahsData) {
 function setSelectedSurahRange(event) {
   const selectedSurahDropdown = event.target;
   const selectedSurahDropdownID = selectedSurahDropdown.id;
-  alert(selectedSurahDropdownID);
-  const selectedSurahValue = selectedSurahDropdown.value;
-  const fromSurahLastAyah = surahsAyahsNumbers[fromSurahValue - 1];
+  const selectedSurahDropdownValue = selectedSurahDropdown.value;
 
-  // fromAyah1.value = fromSurahFirstAyah;
-  // toAyah1.value = fromSurahLastAyah;
+  const surahFristAyahNumber = 1;
+  const surahLastAyahNumber = surahsAyahsNumbers[selectedSurahDropdownValue - 1];
+
+  if (selectedSurahDropdownID === 'fromSurah') {
+    fromAyah1.value = surahFristAyahNumber;
+    toAyah1.value = surahLastAyahNumber;
+  } else if (selectedSurahDropdownID === 'toSurah') {
+    fromAyah2.value = surahFristAyahNumber;
+    toAyah2.value = surahLastAyahNumber;
+  }
 }
 
 // وظيفة لإنشاء الاختبار
