@@ -29,15 +29,16 @@ fetch('surahs_data.json')
   .then(data => {
     surahsData = data;
 
-    // استدعاء دالة إضافة خيارات السور إلى القوائم المنسدلة، ودالة تعيين النطاقات الافتراضية لآيات السور
+    // استدعاء دالة إضافة خيارات السور إلى القوائم المنسدلة
     populateSurahOptions();
-    setSurahsDefaultRanges();
 
     // إنشاء ثلاث مصفوفات: (أسماء السور بأرقامها، أسماء الصور فقط، عدد آيات السور)
     surahsFullNames = Object.keys(surahsData);
     surahsNames = getSurahsNames(surahsData);
     surahsAyahsNumbers = Object.values(surahsData);
 
+    // استدعاء دالة تعيين النطاقات الافتراضية لآيات السور
+    setSurahsDefaultRanges();
   })
   .catch(error => console.error('Error loading surahs data:', error));
 
