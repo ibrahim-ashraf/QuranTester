@@ -112,24 +112,15 @@ function setSelectedSurahRange(event) {
 function validateNumericInput(event) {
   const input = event.target;
   let value = input.value;
-  const allowedNumbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
-  let newValue = '';
+
+  // حذف أي حرف غير رقمي
+  value = value.replace(/[^0-9]/g, '');
 
   // حذف الصفر في بداية النص إذا كان موجودًا
-  if (value.startsWith('0')) {
-    value = value.slice(1);
-  }
-
-  // فحص كل حرف في القيمة المدخلة
-  for (let i = 0; i < value.length; i++) {
-    const char = value[i];
-    if (allowedNumbers.includes(char)) {
-      newValue += char;
-    }
-  }
+  value = value.replace(/^0+/, '');
 
   // تحديث قيمة مربع النص
-  input.value = newValue;
+  input.value = value;
 }
 
 // وظيفة لإنشاء الاختبار
