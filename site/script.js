@@ -14,6 +14,7 @@ const toAyah1 = document.getElementById('toAyah1');
 const toSurahSelect = document.getElementById('toSurah');
 const fromAyah2 = document.getElementById('fromAyah2');
 const toAyah2 = document.getElementById('toAyah2');
+const questionsNumber = document.getElementById('questionsNumber');
 
 // قراءة بيانات القرآن الكريم من ملف JSON
 fetch('quran.json')
@@ -106,6 +107,20 @@ function setSelectedSurahRange(event) {
     fromAyah2.value = surahFristAyahNumber;
     toAyah2.value = surahLastAyahNumber;
   }
+}
+
+function validateNumericInput(event) {
+  const inputElement = event.target;
+  let inputValue = inputElement.value;
+
+  // إزالة أي أحرف غير رقمية
+  inputValue = inputValue.replace(/\D/g, '');
+
+  // إزالة الصفر في البداية إذا كان موجودا
+  inputValue = inputValue.replace(/^0+/, '');
+
+  // تحديث قيمة مربع النص
+  inputElement.value = inputValue;
 }
 
 // وظيفة لإنشاء الاختبار
@@ -209,6 +224,12 @@ function getAyahText(randomSurahNumber, randomAyahNumber) {
 
 fromSurahSelect.addEventListener('change', setSelectedSurahRange);
 toSurahSelect.addEventListener('change', setSelectedSurahRange);
+
+fromAyah1.addEventListener('input', validateNumericInput);
+toAyah1.addEventListener('input', validateNumericInput);
+fromAyah2.addEventListener('input', validateNumericInput);
+toAyah2.addEventListener('input', validateNumericInput);
+questionsNumber.addEventListener('input', validateNumericInput);
 
 // ربط وظيفة createTest بزر "إنشاء اختبار"
 const createTestButton = document.getElementById('createTest');
