@@ -123,6 +123,17 @@ function validateNumericInput(event) {
   input.value = value;
 }
 
+function toggleCreateTestButton() {
+  const questionsInput = document.getElementById('questionsNumber');
+  const createTestButton = document.getElementById('createTest');
+
+  if (questionsInput.value === '') {
+    createTestButton.disabled = true;
+  } else {
+    createTestButton.disabled = false;
+  }
+}
+
 // وظيفة لإنشاء الاختبار
 function createTest() {
   const fromSurah = parseInt(document.getElementById('fromSurah').value);
@@ -230,6 +241,7 @@ toAyah1.addEventListener('input', validateNumericInput);
 fromAyah2.addEventListener('input', validateNumericInput);
 toAyah2.addEventListener('input', validateNumericInput);
 questionsNumber.addEventListener('input', validateNumericInput);
+questionsNumber.addEventListener('input', toggleCreateTestButton);
 
 // ربط وظيفة createTest بزر "إنشاء اختبار"
 const createTestButton = document.getElementById('createTest');
