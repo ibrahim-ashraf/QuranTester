@@ -47,10 +47,11 @@ fetch('surahs_data.json')
 function populateSurahOptions() {
   for (const surahName in surahsData) {
     const option = document.createElement('option');
-    option.value = surahName.split(': ')[0]; // الرقم الخاص بالسورة
-    option.text = surahName; // اسم السورة
+    const surahNumber = surahName.split(': ')[0];
+    option.value = surahNumber;
+    option.text = surahName;
     fromSurahSelect.add(option);
-    toSurahSelect.add(option.cloneNode(true));
+    toSurahSelect.add(option);
   }
 
   // تعيين القيم الافتراضية لنطاق السور
