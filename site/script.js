@@ -50,8 +50,8 @@ function populateSurahOptions () {
     const surahNumber = surahName.split(': ')[0];
     option.value = surahNumber;
     option.text = surahName;
-    fromSurahSelect.append(option);
-    toSurahSelect.append(option);
+    fromSurahSelect.add(option);
+    toSurahSelect.add(option.cloneNode(true));
   }
 
   // تعيين القيم الافتراضية لنطاق السور
