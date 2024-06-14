@@ -9,6 +9,7 @@ let surahsAyahsNumbers;
 
 // الحصول على عناصر تحديد السور ونطاقات الآيات
 const fromSurahSelect = document.getElementById('fromSurah');
+console.log(fromSurahSelect);
 const fromAyah1 = document.getElementById('fromAyah1');
 const toAyah1 = document.getElementById('toAyah1');
 const toSurahSelect = document.getElementById('toSurah');
@@ -50,7 +51,6 @@ function populateSurahOptions () {
     const surahNumber = surahName.split(': ')[0];
     option.value = surahNumber;
     option.text = surahName;
-    console.log(option);
     fromSurahSelect.add(option);
     toSurahSelect.add(option);
   }
