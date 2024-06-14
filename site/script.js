@@ -44,12 +44,13 @@ fetch('surahs_data.json')
   .catch(error => console.error('Error loading surahs data:', error));
 
 // وظيفة لإضافة خيارات السور إلى قوائم الاختيار
-function populateSurahOptions() {
+function populateSurahOptions () {
   for (const surahName in surahsData) {
     const option = document.createElement('option');
     const surahNumber = surahName.split(': ')[0];
     option.value = surahNumber;
     option.text = surahName;
+    console.log(option);
     fromSurahSelect.add(option);
     toSurahSelect.add(option);
   }
@@ -60,12 +61,12 @@ function populateSurahOptions() {
 }
 
 // دالة لتعيين النطاقات الافتراضية للسور
-function setSurahsDefaultRanges() {
+function setSurahsDefaultRanges () {
   // الحصول على القيمة الافتراضية للسور المحددة افتراضيا
   const fromSurahValue = fromSurahSelect.value;
   const toSurahValue = toSurahSelect.value;
 
-// الحصول على أرقام الآيات الأولى والأخيرة للسور المحددة افتراضيا
+  // الحصول على أرقام الآيات الأولى والأخيرة للسور المحددة افتراضيا
   const fromSurahFristAyahNumber = 1;
   const fromSurahLastAyahNumber = surahsAyahsNumbers[fromSurahValue - 1];
   const toSurahFristAyahNumber = 1;
@@ -79,7 +80,7 @@ function setSurahsDefaultRanges() {
 }
 
 // دالة للحصول على أسماء السور
-function getSurahsNames(surahsData) {
+function getSurahsNames (surahsData) {
   const surahsNames = [];
 
   for (let key in surahsData) {
@@ -89,7 +90,7 @@ function getSurahsNames(surahsData) {
   return surahsNames;
 }
 
-function setSelectedSurahRange(event) {
+function setSelectedSurahRange (event) {
   // الحصول على عنصر القائمة المنسدلة للسورة المحددة، ومعرفه، وقيمته
   const selectedSurahDropdown = event.target;
   const selectedSurahDropdownID = selectedSurahDropdown.id;
@@ -110,7 +111,7 @@ function setSelectedSurahRange(event) {
   }
 }
 
-function validateNumericInput(event) {
+function validateNumericInput (event) {
   const input = event.target;
   let value = input.value;
 
@@ -124,7 +125,7 @@ function validateNumericInput(event) {
   input.value = value;
 }
 
-function toggleCreateTestButton() {
+function toggleCreateTestButton () {
   const questionsInput = document.getElementById('questionsNumber');
   const createTestButton = document.getElementById('createTest');
 
@@ -136,7 +137,7 @@ function toggleCreateTestButton() {
 }
 
 // وظيفة لإنشاء الاختبار
-function createTest() {
+function createTest () {
   const fromSurah = parseInt(document.getElementById('fromSurah').value);
   const fromAyah1 = parseInt(document.getElementById('fromAyah1').value);
   const toAyah1 = parseInt(document.getElementById('toAyah1').value);
@@ -168,9 +169,9 @@ function createTest() {
     const randomSurahNumber = getRandomSurahNumber(fromSurah, toSurah);
 
     // الحصول على معلومات السورة المختارة عشوائيا: (اسمها الكامل برقمها، اسمها فقط، عدد آياتها)
-    const randomSurahFullName = surahsFullNames[randomSurahNumber - 1]
-    const randomSurahName = surahsNames[randomSurahNumber - 1]
-    const randomSurahAyahsNumbers = surahsAyahsNumbers[randomSurahNumber - 1]
+    const randomSurahFullName = surahsFullNames[randomSurahNumber - 1];
+    const randomSurahName = surahsNames[randomSurahNumber - 1];
+    const randomSurahAyahsNumbers = surahsAyahsNumbers[randomSurahNumber - 1];
 
     // اختيار رقم آية عشوائي ضمن النطاق المحدد للسورة العشوائية
     const randomAyahNumber = getRandomAyahNumber(randomSurahNumber, randomSurahAyahsNumbers, fromSurah, toSurah, fromAyah1, toAyah1, fromAyah2, toAyah2);
@@ -188,7 +189,7 @@ function createTest() {
 }
 
 // وظائف مساعدة
-function getRandomSurahNumber(fromSurah, toSurah) {
+function getRandomSurahNumber (fromSurah, toSurah) {
   const surahNumbers = [];
   for (let i = fromSurah; i <= toSurah; i++) {
     surahNumbers.push(i);
@@ -197,7 +198,7 @@ function getRandomSurahNumber(fromSurah, toSurah) {
   return surahNumbers[randomIndex];
 }
 
-function getRandomAyahNumber(randomSurahNumber, randomSurahAyahsNumber, fromSurah, toSurah, fromAyah1, toAyah1, fromAyah2, toAyah2) {
+function getRandomAyahNumber (randomSurahNumber, randomSurahAyahsNumber, fromSurah, toSurah, fromAyah1, toAyah1, fromAyah2, toAyah2) {
   // تحديد نطاق الآيات إذا كانت السورة المختارة هي المحددة في حقل "من سورة"
   if (randomSurahNumber === fromSurah) {
     if (!fromAyah1) {
@@ -220,16 +221,16 @@ function getRandomAyahNumber(randomSurahNumber, randomSurahAyahsNumber, fromSura
   }
 }
 
-function getRandomNumber(min, max) {
+function getRandomNumber (min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-function createQuestion(questionNumber, randomSurahNumber, randomAyahNumber, randomSurahName) {
+function createQuestion (questionNumber, randomSurahNumber, randomAyahNumber, randomSurahName) {
   const ayahText = getAyahText(randomSurahNumber, randomAyahNumber); // تنفيذ هذه الوظيفة لاحقًا
   return `س${questionNumber}: سورة ${randomSurahName}: آية ${randomAyahNumber}: قال تعالى: "${ayahText.split(' ').slice(0, 5).join(' ')}"`;
 }
 
-function getAyahText(randomSurahNumber, randomAyahNumber) {
+function getAyahText (randomSurahNumber, randomAyahNumber) {
   const ayah = quranData.find(aya => aya.sura_no === randomSurahNumber && aya.aya_no === randomAyahNumber);
   return ayah ? ayah.aya_text_emlaey : '';
 }
