@@ -3,11 +3,11 @@ let quranData;
 let surahsData;
 
 // تعريف متغيرات مصفوفات أسماء السور وعدد آياتها
-let surahsFullNames;
-let surahsNames;
-let surahsAyahsNumbers;
+const surahsFullNames = [];
+const surahsNames = [];
+const surahsAyahsNumbers = [];
 
-// الحصول على عناصر تحديد السور ونطاقات الآيات
+// الحصول على حقول تحديد السور ونطاقات الآيات وعدد الأسئلة
 const fromSurahSelect = document.getElementById('fromSurah');
 const fromAyah1 = document.getElementById('fromAyah1');
 const toAyah1 = document.getElementById('toAyah1');
@@ -15,6 +15,8 @@ const toSurahSelect = document.getElementById('toSurah');
 const fromAyah2 = document.getElementById('fromAyah2');
 const toAyah2 = document.getElementById('toAyah2');
 const questionsNumber = document.getElementById('questionsNumber');
+const createTestButton = document.getElementById('createTest');
+const questionsList = document.getElementById('questionsList');
 
 // قراءة بيانات القرآن الكريم من ملف JSON
 fetch('quran.json')
@@ -30,25 +32,24 @@ fetch('surahs_data.json')
   .then(data => {
     surahsData = data;
 
-    // استدعاء دالة إضافة خيارات السور إلى القوائم المنسدلة
+    initializeSurahData();
     populateSurahOptions();
-
-    // إنشاء ثلاث مصفوفات: (أسماء السور بأرقامها، أسماء الصور فقط، عدد آيات السور)
-    surahsFullNames = Object.keys(surahsData);
-    surahsNames = getSurahsNames(surahsData);
-    surahsAyahsNumbers = Object.values(surahsData);
-
-    // استدعاء دالة تعيين النطاقات الافتراضية لآيات السور
     setSurahsDefaultRanges();
   })
   .catch(error => console.error('Error loading surahs data:', error));
 
-// وظيفة لإضافة خيارات السور إلى قوائم الاختيار
+// دالة لتهيئة بيانات السور
+function initializeSurahData () {
+  surahsFullNames = Object.keys(surahsData);
+  surahsNames = surahsFullNames.map(surah => surah.split(' ').slice(2).join(' '));
+  surahsAyahsNumbers = Object.values(surahsData);
+}
+
+// دالة لإضافة خيارات السور إلى قوائم الاختيار
 function populateSurahOptions () {
   for (const surahName in surahsData) {
     const option = document.createElement('option');
-    const surahNumber = surahName.split(': ')[0];
-    option.value = surahNumber;
+    option.value = surahName.split(': ')[0];
     option.text = surahName;
     fromSurahSelect.add(option);
     toSurahSelect.add(option.cloneNode(true));
@@ -61,81 +62,38 @@ function populateSurahOptions () {
 
 // دالة لتعيين النطاقات الافتراضية للسور
 function setSurahsDefaultRanges () {
-  // الحصول على القيمة الافتراضية للسور المحددة افتراضيا
-  const fromSurahValue = fromSurahSelect.value;
-  const toSurahValue = toSurahSelect.value;
-
-  // الحصول على أرقام الآيات الأولى والأخيرة للسور المحددة افتراضيا
-  const fromSurahFristAyahNumber = 1;
-  const fromSurahLastAyahNumber = surahsAyahsNumbers[fromSurahValue - 1];
-  const toSurahFristAyahNumber = 1;
-  const toSurahLastAyahNumber = surahsAyahsNumbers[toSurahValue - 1];
-
-  // تعيين أرقام الآيات التي تم الحصول عليها في حقول نطاقات الآيات للسور المحددة افتراضيا
-  fromAyah1.value = fromSurahFristAyahNumber;
-  toAyah1.value = fromSurahLastAyahNumber;
-  fromAyah2.value = toSurahFristAyahNumber;
-  toAyah2.value = toSurahLastAyahNumber;
+  setAyahRange(fromSurahSelect, fromAyah1, toAyah1);
+  setAyahRange(toSurahSelect, fromAyah2, toAyah2);
 }
 
-// دالة للحصول على أسماء السور
-function getSurahsNames (surahsData) {
-  const surahsNames = [];
-
-  for (let key in surahsData) {
-    let surahName = key.split(' ').slice(2);
-    surahsNames.push(surahName);
-  }
-  return surahsNames;
+// دالة لتعيين نطاق الآيات الافتراضي بناءً على السورة المحددة
+function setAyahRange (surahSelect, fromAyah, toAyah) {
+  const surahIndex = surahSelect.value - 1;
+  fromAyah.value = 1;
+  toAyah.value = surahsAyahsNumbers[surahIndex];
 }
 
+// دالة لتحديث نطاق الآيات بناءً على تغيير السورة
 function setSelectedSurahRange (event) {
-  // الحصول على عنصر القائمة المنسدلة للسورة المحددة، ومعرفه، وقيمته
-  const selectedSurahDropdown = event.target;
-  const selectedSurahDropdownID = selectedSurahDropdown.id;
-  const selectedSurahDropdownValue = selectedSurahDropdown.value;
-
-  // الحصول على رقم الآية الأولى والأخيرة للسورة المحددة
-  const surahFristAyahNumber = 1;
-  const surahLastAyahNumber = surahsAyahsNumbers[selectedSurahDropdownValue - 1];
-
-  if (selectedSurahDropdownID === 'fromSurah') { // إذا كانت القائمة المنسدلة هي قائمة سورة البداية
-    // تعيين نطاق الآيات في حقول نطاق آيات سورة البداية
-    fromAyah1.value = surahFristAyahNumber;
-    toAyah1.value = surahLastAyahNumber;
-  } else if (selectedSurahDropdownID === 'toSurah') { // إذا كانت القائمة المنسدلة هي قائمة سورة النهاية
-    // تعيين نطاق الآيات في حقول نطاق آيات سورة النهاية
-    fromAyah2.value = surahFristAyahNumber;
-    toAyah2.value = surahLastAyahNumber;
+  const surahSelect = event.target;
+  if (surahSelect.id === 'fromSurah') {
+    setAyahRange(surahSelect, fromAyah1, toAyah1);
+  } else if (surahSelect.id === 'toSurah') {
+    setAyahRange(surahSelect, fromAyah2, toAyah2);
   }
 }
 
+// دالة للتحقق من إدخال القيم الرقمية
 function validateNumericInput (event) {
-  const input = event.target;
-  let value = input.value;
-
-  // حذف أي حرف غير رقمي
-  value = value.replace(/[^0-9]/g, '');
-
-  // حذف الصفر في بداية النص إذا كان موجودًا
-  value = value.replace(/^0+/, '');
-
-  // تحديث قيمة مربع النص
-  input.value = value;
+  event.target.value = event.target.value.replace(/[^0-9]/g, '').replace(/^0+/, '');
 }
 
+// دالة لتفعيل أو تعطيل زر إنشاء الاختبار بناءً على إدخال عدد الأسئلة
 function toggleCreateTestButton () {
-  const questionsInput = document.getElementById('questionsNumber');
-  const createTestButton = document.getElementById('createTest');
-
-  if (questionsInput.value === '') {
-    createTestButton.disabled = true;
-  } else {
-    createTestButton.disabled = false;
-  }
+  createTestButton.disabled = questionsNumber.value === '';
 }
 
-// وظيفة لإنشاء الاختبار
+// دالة لإنشاء الاختبار
 function createTest () {
   const fromSurah = parseInt(document.getElementById('fromSurah').value);
   const fromAyah1 = parseInt(document.getElementById('fromAyah1').value);
@@ -245,5 +203,4 @@ questionsNumber.addEventListener('input', validateNumericInput);
 questionsNumber.addEventListener('input', toggleCreateTestButton);
 
 // ربط وظيفة createTest بزر "إنشاء اختبار"
-const createTestButton = document.getElementById('createTest');
 createTestButton.addEventListener('click', createTest);
