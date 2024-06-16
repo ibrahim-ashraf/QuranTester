@@ -3,9 +3,9 @@ let quranData;
 let surahsData;
 
 // تعريف متغيرات مصفوفات أسماء السور وعدد آياتها
-const surahsFullNames = [];
-const surahsNames = [];
-const surahsAyahsNumbers = [];
+let surahsFullNames = [];
+let surahsNames = [];
+let surahsAyahsNumbers = [];
 
 // الحصول على حقول تحديد السور ونطاقات الآيات وعدد الأسئلة
 const fromSurahSelect = document.getElementById('fromSurah');
