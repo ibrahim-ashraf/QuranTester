@@ -95,103 +95,71 @@ function toggleCreateTestButton () {
 
 // دالة لإنشاء الاختبار
 function createTest () {
-  const fromSurah = parseInt(document.getElementById('fromSurah').value);
-  const fromAyah1 = parseInt(document.getElementById('fromAyah1').value);
-  const toAyah1 = parseInt(document.getElementById('toAyah1').value);
-  const toSurah = parseInt(document.getElementById('toSurah').value);
-  const fromAyah2 = parseInt(document.getElementById('fromAyah2').value);
-  const toAyah2 = parseInt(document.getElementById('toAyah2').value);
-  const questionsNumber = parseInt(document.getElementById('questionsNumber').value);
+  const fromSurahValue = parseInt(fromSurahSelect.value);
+  const fromAyah1Value = parseInt(fromAyah1.value);
+  const toAyah1Value = parseInt(toAyah1.value);
+  const toSurahValue = parseInt(toSurahSelect.value);
+  const fromAyah2Value = parseInt(fromAyah2.value);
+  const toAyah2Value = parseInt(toAyah2.value);
+  const questionsCountValue = parseInt(questionsNumber.value);
 
   // التحقق من ملء حقل عدد الأسئلة
-  if (!questionsNumber) {
+  if (!questionsCountValue) {
     alert('يرجى كتابة عدد الأسئلة.');
     return;
   }
 
-  // الحصول على عنصر قائمة الأسئلة
-  const questionsList = document.getElementById('questionsList');
-
   // مسح أي أسئلة قديمة
   questionsList.innerHTML = '';
 
-  // إنشاء الأسئلة العشوائية
-  const questions = [];
-
-  for (let i = 0; i < questionsNumber; i++) {
-    // تعيين رقم السؤال
-    let questionNumber = i + 1;
-
-    // اختيار سورة عشوائية ضمن النطاق المحدد وتخزين رقمها
-    const randomSurahNumber = getRandomSurahNumber(fromSurah, toSurah);
-
-    // الحصول على معلومات السورة المختارة عشوائيا: (اسمها الكامل برقمها، اسمها فقط، عدد آياتها)
-    const randomSurahFullName = surahsFullNames[randomSurahNumber - 1];
-    const randomSurahName = surahsNames[randomSurahNumber - 1];
-    const randomSurahAyahsNumbers = surahsAyahsNumbers[randomSurahNumber - 1];
-
-    // اختيار رقم آية عشوائي ضمن النطاق المحدد للسورة العشوائية
-    const randomAyahNumber = getRandomAyahNumber(randomSurahNumber, randomSurahAyahsNumbers, fromSurah, toSurah, fromAyah1, toAyah1, fromAyah2, toAyah2);
-
-    // إنشاء السؤال واضافته إلى قائمة الأسئلة
-    const question = createQuestion(questionNumber, randomSurahNumber, randomAyahNumber, randomSurahName);
-    questions.push(question);
-    const li = document.createElement('li');
-    li.textContent = question;
-    questionsList.appendChild(li);
+  for (let i = 0; i < questionsCountValue; i++) {
+    const question = createRandomQuestion(i + 1, fromSurahValue, fromAyah1Value, toAyah1Value, toSurahValue, fromAyah2Value, toAyah2Value);
+    const listItem = document.createElement('li');
+    listItem.textContent = question;
+    questionsList.appendChild(listItem);
   }
 
   // عرض رسالة نجاح
   alert('تم إنشاء الاختبار بنجاح!');
 }
 
-// وظائف مساعدة
-function getRandomSurahNumber (fromSurah, toSurah) {
-  const surahNumbers = [];
-  for (let i = fromSurah; i <= toSurah; i++) {
-    surahNumbers.push(i);
-  }
-  const randomIndex = Math.floor(Math.random() * surahNumbers.length);
-  return surahNumbers[randomIndex];
+// دالة لإنشاء سؤال عشوائي
+function createRandomQuestion (questionNumber, fromSurahValue, fromAyah1Value, toAyah1Value, toSurahValue, fromAyah2Value, toAyah2Value) {
+  const randomSurahNumber = getRandomSurahNumber(fromSurahValue, toSurahValue);
+  const randomAyahNumber = getRandomAyahNumber(randomSurahNumber, fromSurahValue, fromAyah1Value, toAyah1Value, toSurahValue, fromAyah2Value, toAyah2Value);
+  const surahName = surahsNames[randomSurahNumber - 1];
+  const ayahText = getAyahText(randomSurahNumber, randomAyahNumber);
+  return `س${questionNumber}: سورة ${surahName}: آية ${randomAyahNumber}: قال تعالى: "${ayahText.split(' ').slice(0, 5).join(' ')}"`;
 }
 
-function getRandomAyahNumber (randomSurahNumber, randomSurahAyahsNumber, fromSurah, toSurah, fromAyah1, toAyah1, fromAyah2, toAyah2) {
-  // تحديد نطاق الآيات إذا كانت السورة المختارة هي المحددة في حقل "من سورة"
-  if (randomSurahNumber === fromSurah) {
-    if (!fromAyah1) {
-      fromAyah1 = 1; // تعيين آية البداية على 1 إذا لم يتم تحديدها
-    }
-    if (!toAyah1) {
-      toAyah1 = randomSurahAyahsNumber;  // تعيين آية النهاية على آخر آية في السورة إذا لم يتم تحديدها
-    }
-    return getRandomNumber(fromAyah1, toAyah1); // توليد رقم آية عشوائي بين النطاق الذي حدده المستخدم
-  } else if (randomSurahNumber === toSurah) {
-    if (!fromAyah2) {
-      fromAyah2 = 1;
-    }
-    if (!toAyah2) {
-      toAyah2 = randomSurahAyahsNumber;
-    }
-    return getRandomNumber(fromAyah2, toAyah2);
-  } else {
-    return getRandomNumber(1, randomSurahAyahsNumber);
-  }
-}
-
-function getRandomNumber (min, max) {
+// دالة للحصول على رقم سورة عشوائي
+function getRandomSurahNumber (min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-function createQuestion (questionNumber, randomSurahNumber, randomAyahNumber, randomSurahName) {
-  const ayahText = getAyahText(randomSurahNumber, randomAyahNumber); // تنفيذ هذه الوظيفة لاحقًا
-  return `س${questionNumber}: سورة ${randomSurahName}: آية ${randomAyahNumber}: قال تعالى: "${ayahText.split(' ').slice(0, 5).join(' ')}"`;
+// دالة للحصول على رقم آية عشوائي ضمن نطاق محدد
+function getRandomAyahNumber (randomSurahNumber, fromSurahValue, fromAyah1Value, toAyah1Value, toSurahValue, fromAyah2Value, toAyah2Value) {
+  let start, end;
+  if (randomSurahNumber === fromSurahValue) {
+    start = fromAyah1Value;
+    end = toAyah1Value;
+  } else if (randomSurahNumber === toSurahValue) {
+    start = fromAyah2Value;
+    end = toAyah2Value;
+  } else {
+    start = 1;
+    end = surahsAyahsNumbers[randomSurahNumber - 1];
+  }
+  return getRandomSurahNumber(start, end);
 }
 
-function getAyahText (randomSurahNumber, randomAyahNumber) {
-  const ayah = quranData.find(aya => aya.sura_no === randomSurahNumber && aya.aya_no === randomAyahNumber);
+// دالة للحصول على نص آية محددة
+function getAyahText (surahNumber, ayahNumber) {
+  const ayah = quranData.find(aya => aya.sura_no === surahNumber && aya.aya_no === ayahNumber);
   return ayah ? ayah.aya_text_emlaey : '';
 }
 
+// إضافة مستمعات للأحداث
 fromSurahSelect.addEventListener('change', setSelectedSurahRange);
 toSurahSelect.addEventListener('change', setSelectedSurahRange);
 
@@ -202,5 +170,4 @@ toAyah2.addEventListener('input', validateNumericInput);
 questionsNumber.addEventListener('input', validateNumericInput);
 questionsNumber.addEventListener('input', toggleCreateTestButton);
 
-// ربط وظيفة createTest بزر "إنشاء اختبار"
 createTestButton.addEventListener('click', createTest);
