@@ -2,58 +2,44 @@
 <html lang="ar" dir="rtl">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مختبر القرآن الكريم</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>الرئيسية - مختبر القرآن الكريم</title>
+
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <header>
-        <nav>
-            <ul>
-                <li><a href="#">الصفحة الرئيسية</a></li>
-                <li><a href="#">إنشاء اختبار</a></li>
-                <li><a href="#">دليل المستخدم</a></li>
-                <li><a href="#">حول البرنامج</a></li>
-            </ul>
-        </nav>
-    </header>
 
-    <main>
-        <section>
-            <h1>مختبر القرآن الكريم</h1>
-            <p>مرحبًا بك في موقع مختبر القرآن الكريم، حيث يمكنك إنشاء اختبارات عشوائية من القرآن الكريم.</p>
-        </section>
+  <header>
+    <div id="nav-container"></div>
+  </header>
 
-        <section>
-            <h2>إنشاء اختبار جديد</h2>
+  <main>
 
-            <label for="fromSurah">من سورة: </label>
-            <select id="fromSurah"></select><br>
+    <h1>مختبر القرآن الكريم</h1>
+    <p>مرحبًا بك في موقع مختبر القرآن الكريم، حيث يمكنك إنشاء اختبارات عشوائية من القرآن الكريم.</p>
 
-            <input type="number" id="fromAyah1" min="1" placeholder="من آية: "><br>
-            <input type="number" id="toAyah1" min="1" placeholder="إلى آية: "><br>
+    <h2>ميزات الموقع</h2>
+    <ul>
+      <li>إمكانية إنشاء اختبارات عشوائية من القرآن الكريم بسهولة ويسر.</li>
+      <li>إمكانية تحديد سور وآيات محددة لإنشاء الاختبار.</li>
+      <li>إمكانية تحديد عدد أسئلة الاختبار.</li>
+      <li>واجهة مستخدم بسيطة وسهلة الاستخدام.</li>
 
-            <label for="toSurah">إلى سورة: </label>
-            <select id="toSurah"></select><br>
+      <h2>جرب موقعنا الآن وابدأ بإنشاء اختبارك الأول</h2>
+      <p>انتقل إلى <a href="create-test.html">صفحة إنشاء الاختبار</a>؛ لإنشاء اختبارك الأول.</p>
+      <p>ملاحظة: يمكنك الانتقال إلى <a href="create-test-beta.html">صفحة إنشاء الاختبار (النسخة التجريبية)</a>؛ لتجربة الميزات قبل إضافتها إلى النسخة المستقرة.<br>
+        ملاحظة هامة: قد تكون النسخة التجريبية غير مستقرة؛ نظرا لكون الميزات تحت الإنشاء.</p>
+  </main>
 
-            <input type="number" id="fromAyah2" min="1" placeholder="من آية: "><br>
-            <input type="number" id="toAyah2" min="1" placeholder="إلى آية: "><br>
+  <footer>
+    <p>&copy; 2024 مختبر القرآن الكريم. جميع الحقوق محفوظة.</p>
+  </footer>
 
-            <input type="number" id="questionsNumber" min="1" placeholder="عدد الأسئلة: "><br>
-
-            <button id="createTest" disabled>إنشاء اختبار</button>
-
-            <ol id="questionsList"></ol>
-        </section>
-    </main>
-
-    <footer>
-        <p>&copy; 2024 مختبر القرآن الكريم. جميع الحقوق محفوظة.</p>
-    </footer>
-
-    <script src="script.js"></script>
+  <script src="loadNav.js"></script>
+  <script src="script.js"></script>
 </body>
 
 </html>

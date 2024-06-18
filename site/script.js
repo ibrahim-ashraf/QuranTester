@@ -39,18 +39,16 @@ fetch('surahs_data.json')
   .catch(error => console.error('Error loading surahs data:', error));
 
 // دالة لتهيئة بيانات السور
-function initializeSurahData () {
+function initializeSurahData() {
   surahsFullNames = Object.keys(surahsData);
   surahsNames = surahsFullNames.map(surah => surah.split(' ').slice(2).join(' '));
   surahsAyahsNumbers = Object.values(surahsData);
 }
 
 // دالة لإضافة خيارات السور إلى قوائم الاختيار
-function populateSurahOptions () {
-  for (const surahName in surahsData) {
-    const option = document.createElement('option');
-    option.value = surahName.split(': ')[0];
-    option.text = surahName;
+function populateSurahOptions() {
+  surahsFullNames.forEach((surahName, index) => {
+    const option = new Option(surahName, index + 1);
     fromSurahSelect.add(option);
     toSurahSelect.add(option.cloneNode(true));
   }
@@ -61,20 +59,20 @@ function populateSurahOptions () {
 }
 
 // دالة لتعيين النطاقات الافتراضية للسور
-function setSurahsDefaultRanges () {
+function setSurahsDefaultRanges() {
   setAyahRange(fromSurahSelect, fromAyah1, toAyah1);
   setAyahRange(toSurahSelect, fromAyah2, toAyah2);
 }
 
 // دالة لتعيين نطاق الآيات الافتراضي بناءً على السورة المحددة
-function setAyahRange (surahSelect, fromAyah, toAyah) {
+function setAyahRange(surahSelect, fromAyah, toAyah) {
   const surahIndex = surahSelect.value - 1;
   fromAyah.value = 1;
   toAyah.value = surahsAyahsNumbers[surahIndex];
 }
 
 // دالة لتحديث نطاق الآيات بناءً على تغيير السورة
-function setSelectedSurahRange (event) {
+function setSelectedSurahRange(event) {
   const surahSelect = event.target;
   if (surahSelect.id === 'fromSurah') {
     setAyahRange(surahSelect, fromAyah1, toAyah1);
@@ -84,17 +82,17 @@ function setSelectedSurahRange (event) {
 }
 
 // دالة للتحقق من إدخال القيم الرقمية
-function validateNumericInput (event) {
+function validateNumericInput(event) {
   event.target.value = event.target.value.replace(/[^0-9]/g, '').replace(/^0+/, '');
 }
 
 // دالة لتفعيل أو تعطيل زر إنشاء الاختبار بناءً على إدخال عدد الأسئلة
-function toggleCreateTestButton () {
+function toggleCreateTestButton() {
   createTestButton.disabled = questionsNumber.value === '';
 }
 
 // دالة لإنشاء الاختبار
-function createTest () {
+function createTest() {
   const fromSurahValue = parseInt(fromSurahSelect.value);
   const fromAyah1Value = parseInt(fromAyah1.value);
   const toAyah1Value = parseInt(toAyah1.value);
@@ -124,7 +122,7 @@ function createTest () {
 }
 
 // دالة لإنشاء سؤال عشوائي
-function createRandomQuestion (questionNumber, fromSurahValue, fromAyah1Value, toAyah1Value, toSurahValue, fromAyah2Value, toAyah2Value) {
+function createRandomQuestion(questionNumber, fromSurahValue, fromAyah1Value, toAyah1Value, toSurahValue, fromAyah2Value, toAyah2Value) {
   const randomSurahNumber = getRandomSurahNumber(fromSurahValue, toSurahValue);
   const randomAyahNumber = getRandomAyahNumber(randomSurahNumber, fromSurahValue, fromAyah1Value, toAyah1Value, toSurahValue, fromAyah2Value, toAyah2Value);
   const surahName = surahsNames[randomSurahNumber - 1];
@@ -133,12 +131,12 @@ function createRandomQuestion (questionNumber, fromSurahValue, fromAyah1Value, t
 }
 
 // دالة للحصول على رقم سورة عشوائي
-function getRandomSurahNumber (min, max) {
+function getRandomSurahNumber(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 // دالة للحصول على رقم آية عشوائي ضمن نطاق محدد
-function getRandomAyahNumber (randomSurahNumber, fromSurahValue, fromAyah1Value, toAyah1Value, toSurahValue, fromAyah2Value, toAyah2Value) {
+function getRandomAyahNumber(randomSurahNumber, fromSurahValue, fromAyah1Value, toAyah1Value, toSurahValue, fromAyah2Value, toAyah2Value) {
   let start, end;
   if (randomSurahNumber === fromSurahValue) {
     start = fromAyah1Value;
@@ -154,7 +152,7 @@ function getRandomAyahNumber (randomSurahNumber, fromSurahValue, fromAyah1Value,
 }
 
 // دالة للحصول على نص آية محددة
-function getAyahText (surahNumber, ayahNumber) {
+function getAyahText(surahNumber, ayahNumber) {
   const ayah = quranData.find(aya => aya.sura_no === surahNumber && aya.aya_no === ayahNumber);
   return ayah ? ayah.aya_text_emlaey : '';
 }

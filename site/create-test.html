@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>إنشاء اختبار - مختبر القرآن الكريم</title>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <header>
+    <div id="nav-container"></div>
+  </header>
+
+  <main>
+
+    <h1>إنشاء اختبار جديد</h1>
+
+    <label for="fromSurah">من سورة: </label>
+    <select id="fromSurah"></select><br>
+
+    <input type="number" id="fromAyah1" min="1" placeholder="من آية: "><br>
+    <input type="number" id="toAyah1" min="1" placeholder="إلى آية: "><br>
+
+    <label for="toSurah">إلى سورة: </label>
+    <select id="toSurah"></select><br>
+
+    <input type="number" id="fromAyah2" min="1" placeholder="من آية: "><br>
+    <input type="number" id="toAyah2" min="1" placeholder="إلى آية: "><br>
+
+    <input type="number" id="questionsNumber" min="1" placeholder="عدد الأسئلة: "><br>
+
+    <button id="createTest" disabled>إنشاء اختبار</button>
+
+    <ol id="questionsList"></ol>
+  </main>
+
+  <footer>
+    <p>&copy; 2024 مختبر القرآن الكريم. جميع الحقوق محفوظة.</p>
+  </footer>
+
+  <script src="loadNav.js"></script>
+  <script src="script.js"></script>
+</body>
+
+</html>
