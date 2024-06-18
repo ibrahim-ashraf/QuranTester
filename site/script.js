@@ -51,7 +51,7 @@ function populateSurahOptions() {
     const option = new Option(surahName, index + 1);
     fromSurahSelect.add(option);
     toSurahSelect.add(option.cloneNode(true));
-  }
+  });
 
   // تعيين القيم الافتراضية لنطاق السور
   fromSurahSelect.value = '1';
