@@ -92,7 +92,9 @@ function toggleCreateTestButton() {
 }
 
 // دالة لإنشاء الاختبار
-function createTest() {
+function createTest(event) {
+  event.preventDefault();
+
   const fromSurahValue = parseInt(fromSurahSelect.value);
   const fromAyah1Value = parseInt(fromAyah1.value);
   const toAyah1Value = parseInt(toAyah1.value);
@@ -169,3 +171,5 @@ questionsNumber.addEventListener('input', validateNumericInput);
 questionsNumber.addEventListener('input', toggleCreateTestButton);
 
 createTestButton.addEventListener('click', createTest);
+
+test - form.addEventListener('submit', createTest);
