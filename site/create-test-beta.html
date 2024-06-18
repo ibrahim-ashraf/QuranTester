@@ -20,25 +20,25 @@
 
     <h1>إنشاء اختبار</h1>
 
-    <form id="test-form">
-      <label for="fromSurah">من سورة: </label>
-      <select id="fromSurah"></select><br>
+    <form>
+      <label for="from-surah-select">من سورة: </label>
+      <select id="from-surah-select"></select><br>
 
-      <input type="number" id="fromAyah1" min="1" placeholder="من آية: "><br>
-      <input type="number" id="toAyah1" min="1" placeholder="إلى آية: "><br>
+      <input type="number" id="from-ayah-start-input" min="1" placeholder="من آية: "><br>
+      <input type="number" id="to-ayah-start-input" min="1" placeholder="إلى آية: "><br>
 
-      <label for="toSurah">إلى سورة: </label>
-      <select id="toSurah"></select><br>
+      <label for="to-surah-select">إلى سورة: </label>
+      <select id="to-surah-select"></select><br>
 
-      <input type="number" id="fromAyah2" min="1" placeholder="من آية: "><br>
-      <input type="number" id="toAyah2" min="1" placeholder="إلى آية: "><br>
+      <input type="number" id="from-ayah-end-input" min="1" placeholder="من آية: "><br>
+      <input type="number" id="to-ayah-end-input" min="1" placeholder="إلى آية: "><br>
 
-      <input type="number" id="questionsNumber" min="1" placeholder="عدد الأسئلة: "><br>
+      <input type="number" id="questions-count-input" min="1" placeholder="عدد الأسئلة: "><br>
 
-      <button id="createTest" disabled>إنشاء اختبار</button>
+      <button type="submit" id="create-test-button" disabled>إنشاء اختبار</button>
     </form>
 
-    <ol id="questionsList"></ol>
+    <ol id="questions-list"></ol>
   </main>
 
   <footer>
