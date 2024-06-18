@@ -172,4 +172,4 @@ questionsNumber.addEventListener('input', toggleCreateTestButton);
 
 createTestButton.addEventListener('click', createTest);
 
-test - form.addEventListener('submit', createTest);
+// test - form.addEventListener('submit', createTest);
