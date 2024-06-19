@@ -19,26 +19,33 @@
   <main>
 
     <h1>إنشاء اختبار</h1>
+    <p>يمكنك إنشاء الاختبارات من هذه الصفحة. تفضل بزيارة <a href="user-guide.html">دليل المستخدم</a> إذا احتجت إلى تفاصيل أي خطوة موضحة هنا.</p>
 
-    <form>
-      <label for="from-surah-select">من سورة: </label>
-      <select id="from-surah-select"></select><br>
+    <section>
+      <h2>إنشاء الاختبار</h2>
+      <form>
+        <label for="from-surah-select">من سورة: </label>
+        <select id="from-surah-select"></select><br>
 
-      <input type="number" id="from-ayah-start-input" min="1" placeholder="من آية: "><br>
-      <input type="number" id="to-ayah-start-input" min="1" placeholder="إلى آية: "><br>
+        <input type="number" id="from-ayah-start-input" min="1" placeholder="من آية: "><br>
+        <input type="number" id="to-ayah-start-input" min="1" placeholder="إلى آية: "><br>
 
-      <label for="to-surah-select">إلى سورة: </label>
-      <select id="to-surah-select"></select><br>
+        <label for="to-surah-select">إلى سورة: </label>
+        <select id="to-surah-select"></select><br>
 
-      <input type="number" id="from-ayah-end-input" min="1" placeholder="من آية: "><br>
-      <input type="number" id="to-ayah-end-input" min="1" placeholder="إلى آية: "><br>
+        <input type="number" id="from-ayah-end-input" min="1" placeholder="من آية: "><br>
+        <input type="number" id="to-ayah-end-input" min="1" placeholder="إلى آية: "><br>
 
-      <input type="number" id="questions-count-input" min="1" placeholder="عدد الأسئلة: "><br>
+        <input type="number" id="questions-count-input" min="1" placeholder="عدد الأسئلة: "><br>
 
-      <button type="submit" id="create-test-button" disabled>إنشاء اختبار</button>
-    </form>
+        <button type="submit" id="create-test-button" disabled>إنشاء اختبار</button>
+      </form>
+    </section>
 
-    <ol id="questions-list"></ol>
+    <section>
+      <h2>قائمة الأسئلة</h2>
+      <ol id="questions-list"></ol>
+    </section>
   </main>
 
   <footer>
