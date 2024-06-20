@@ -160,6 +160,8 @@ function displayQuestions() {
   questionsTableBody.innerHTML = '';
 
   questionsList.forEach((question, index) => {
+    question.questionNumber = index + 1;
+
     const HTMLTableRow = `
     <tr>
       <td>${question.questionNumber}</td>
