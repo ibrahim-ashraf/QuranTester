@@ -157,6 +157,8 @@ function getAyahText(surahNumber, ayahNumber) {
 }
 
 function displayQuestions() {
+  questionsTableBody.innerHTML = '';
+
   questionsList.forEach((question, index) => {
     const HTMLTableRow = `
     <tr>
