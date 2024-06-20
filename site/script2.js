@@ -108,12 +108,16 @@ function createTest(event) {
   questionsTableBody.innerHTML = '';
 
   for (let i = 0; i < questionsCountValue; i++) {
+    const randomSurahNumber = getRandomNumber(fromSurahValue, toSurahValue);
+    const randomAyahNumber = getRandomAyahNumber(randomSurahNumber, fromSurahValue, fromAyahStartValue, toAyahStartValue, toSurahValue, fromAyahEndValue, toAyahEndValue);
+    const ayahText = getAyahText(randomSurahNumber, randomAyahNumber);
+
     const question = {
       questionNumber: i + 1,
-      surahNumber: getRandomNumber(fromSurahValue, toSurahValue),
-      surahName: surahsNames[this.surahNumber - 1],
-      ayahNumber: getRandomAyahNumber(this.surahNumber, fromSurahValue, fromAyahStartValue, toAyahStartValue, toSurahValue, fromAyahEndValue, toAyahEndValue),
-      ayahText: getAyahText(this.surahNumber, this.ayahNumber)
+      surahNumber: randomSurahNumber,
+      surahName: surahsNames[randomSurahNumber - 1],
+      ayahNumber: randomAyahNumber,
+      ayahText: ayahText
     };
 
     questionsList.push(question);
