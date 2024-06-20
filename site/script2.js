@@ -105,6 +105,7 @@ function createTest(event) {
   const questionsCountValue = parseInt(questionsCountInput.value);
 
   // مسح أي أسئلة قديمة
+  questionsList = [];
   questionsTableBody.innerHTML = '';
 
   for (let i = 0; i < questionsCountValue; i++) {
