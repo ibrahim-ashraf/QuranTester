@@ -2,10 +2,11 @@
 let quranData;
 let surahsData;
 
-// تعريف متغيرات مصفوفات أسماء السور وعدد آياتها
+// تعريف متغيرات مصفوفات أسماء السور وعدد آياتها ومتغير مصفوفة الأسئلة
 let surahsFullNames = [];
 let surahsNames = [];
 let surahsAyahsNumbers = [];
+let questionsList = [];
 
 // الحصول على حقول تحديد السور ونطاقات الآيات وعدد الأسئلة
 const fromSurahSelect = document.getElementById('from-surah-select');
@@ -103,29 +104,26 @@ function createTest(event) {
   const toAyahEndValue = parseInt(toAyahEndInput.value);
   const questionsCountValue = parseInt(questionsCountInput.value);
 
-  // التحقق من ملء حقل عدد الأسئلة
-  if (!questionsCountValue) {
-    alert('يرجى كتابة عدد الأسئلة.');
-    return;
-  }
-
   // مسح أي أسئلة قديمة
   questionsTableBody.innerHTML = '';
 
   for (let i = 0; i < questionsCountValue; i++) {
-    const questionNumber = i + 1;
+    const question = {
+      questionNumber: i + 1,
+      surahNumber: getRandomNumber(fromSurahValue, toSurahValue),
+      surahName: surahsNames[randomSurahNumber - 1],
+      ayahNumber: getRandomAyahNumber(this.surahNumber, fromSurahValue, fromAyahStartValue, toAyahStartValue, toSurahValue, fromAyahEndValue, toAyahEndValue),
+      ayahText: getAyahText(this.surahNumber, this.ayahNumber)
+    };
 
-    const randomSurahNumber = getRandomNumber(fromSurahValue, toSurahValue);
-    const surahName = surahsNames[randomSurahNumber - 1];
-    const randomAyahNumber = getRandomAyahNumber(randomSurahNumber, fromSurahValue, fromAyahStartValue, toAyahStartValue, toSurahValue, fromAyahEndValue, toAyahEndValue);
-    const ayahText = getAyahText(randomSurahNumber, randomAyahNumber);
+    questionsList.push(question);
 
     const HTMLTableRow = `
     <tr>
-      <td>${questionNumber}</td>
-      <td>${surahName}</td>
-      <td>${randomAyahNumber}</td>
-      <td>${ayahText}</td>
+      <td>${question.questionNumber}</td>
+      <td>${question.surahName}</td>
+      <td>${question.ayahNumber}</td>
+      <td>${question.ayahText}</td>
     </tr>
     `;
 
