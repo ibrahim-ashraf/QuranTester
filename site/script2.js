@@ -121,29 +121,13 @@ function createTest(event) {
     };
 
     questionsList.push(question);
-    console.log(question);
-
-    const HTMLTableRow = `
-    <tr>
-      <td>${question.questionNumber}</td>
-      <td>${question.surahName}</td>
-      <td>${question.ayahNumber}</td>
-      <td>${question.ayahText}</td>
-    </tr>
-    `;
-
-    questionsTableBody.innerHTML += HTMLTableRow;
   }
+
+  displayQuestions();
 
   // عرض رسالة نجاح
   alert('تم إنشاء الاختبار بنجاح!');
 }
-
-// دالة لإنشاء سؤال عشوائي
-
-
-
-
 
 // دالة للحصول على رقم سورة عشوائي
 function getRandomNumber(min, max) {
@@ -170,6 +154,26 @@ function getRandomAyahNumber(randomSurahNumber, fromSurahValue, fromAyahStartVal
 function getAyahText(surahNumber, ayahNumber) {
   const ayah = quranData.find(aya => aya.sura_no === surahNumber && aya.aya_no === ayahNumber);
   return ayah ? ayah.aya_text_emlaey : '';
+}
+
+function displayQuestions() {
+  questionsList.forEach((question, index) => {
+    const HTMLTableRow = `
+    <tr>
+      <td>${question.questionNumber}</td>
+      <td>${question.surahName}</td>
+      <td>${question.ayahNumber}</td>
+      <td>${question.ayahText}</td>
+      <td><button onclick="deleteQuestion(${index})">حذف</button></td>
+    </tr>
+    `;
+    questionsTableBody.innerHTML += HTMLTableRow;
+  };
+}
+
+function deleteQuestion(questionIndex) {
+  questionsList.splice(questionIndex, 1);
+  displayQuestions();
 }
 
 // إضافة مستمعات للأحداث
