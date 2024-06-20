@@ -117,6 +117,7 @@ function createTest(event) {
     };
 
     questionsList.push(question);
+    console.log(question);
 
     const HTMLTableRow = `
     <tr>
