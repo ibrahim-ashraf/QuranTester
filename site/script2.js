@@ -168,7 +168,7 @@ function displayQuestions() {
     </tr>
     `;
     questionsTableBody.innerHTML += HTMLTableRow;
-  };
+  });
 }
 
 function deleteQuestion(questionIndex) {
