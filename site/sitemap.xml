@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
+
+
+<url>
+  <loc>https://qurantester.netlify.app/</loc>
+  <lastmod>2024-06-20T22:09:29+00:00</lastmod>
+  <priority>1.00</priority>
+</url>
+<url>
+  <loc>https://qurantester.netlify.app/create-test</loc>
+  <lastmod>2024-06-20T22:09:29+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://qurantester.netlify.app/create-test-beta</loc>
+  <lastmod>2024-06-20T22:09:29+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://qurantester.netlify.app/user-guide</loc>
+  <lastmod>2024-06-20T22:09:29+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://qurantester.netlify.app/contact-us</loc>
+  <lastmod>2024-06-20T22:09:29+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+
+
+</urlset>
