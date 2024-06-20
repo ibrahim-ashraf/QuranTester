@@ -111,7 +111,7 @@ function createTest(event) {
     const question = {
       questionNumber: i + 1,
       surahNumber: getRandomNumber(fromSurahValue, toSurahValue),
-      surahName: surahsNames[randomSurahNumber - 1],
+      surahName: surahsNames[this.surahNumber - 1],
       ayahNumber: getRandomAyahNumber(this.surahNumber, fromSurahValue, fromAyahStartValue, toAyahStartValue, toSurahValue, fromAyahEndValue, toAyahEndValue),
       ayahText: getAyahText(this.surahNumber, this.ayahNumber)
     };
