@@ -16,7 +16,7 @@ const fromAyahEndInput = document.getElementById('from-ayah-end-input');
 const toAyahEndInput = document.getElementById('to-ayah-end-input');
 const questionsCountInput = document.getElementById('questions-count-input');
 const createTestButton = document.getElementById('create-test-button');
-const questionsList = document.getElementById('questions-list');
+const questionsTableBody = document.getElementById('questions-table-body');
 
 // قراءة بيانات القرآن الكريم من ملف JSON
 fetch('quran.json')
@@ -110,13 +110,26 @@ function createTest(event) {
   }
 
   // مسح أي أسئلة قديمة
-  questionsList.innerHTML = '';
+  questionsTableBody.innerHTML = '';
 
   for (let i = 0; i < questionsCountValue; i++) {
-    const question = createRandomQuestion(i + 1, fromSurahValue, fromAyahStartValue, toAyahStartValue, toSurahValue, fromAyahEndValue, toAyahEndValue);
-    const listItem = document.createElement('li');
-    listItem.textContent = question;
-    questionsList.appendChild(listItem);
+    const questionNumber = i + 1;
+
+    const randomSurahNumber = getRandomNumber(fromSurahValue, toSurahValue);
+    const surahName = surahsNames[randomSurahNumber - 1];
+    const randomAyahNumber = getRandomAyahNumber(randomSurahNumber, fromSurahValue, fromAyahStartValue, toAyahStartValue, toSurahValue, fromAyahEndValue, toAyahEndValue);
+    const ayahText = getAyahText(randomSurahNumber, randomAyahNumber);
+
+    const HTMLTableRow = `
+    <tr>
+      <td>${questionNumber}</td>
+      <td>${surahName}</td>
+      <td>${randomAyahNumber}</td>
+      <td>${ayahText}</td>
+    </tr>
+    `;
+
+    questionsTableBody.innerHTML += HTMLTableRow;
   }
 
   // عرض رسالة نجاح
@@ -124,16 +137,13 @@ function createTest(event) {
 }
 
 // دالة لإنشاء سؤال عشوائي
-function createRandomQuestion(questionNumber, fromSurahValue, fromAyahStartValue, toAyahStartValue, toSurahValue, fromAyahEndValue, toAyahEndValue) {
-  const randomSurahNumber = getRandomSurahNumber(fromSurahValue, toSurahValue);
-  const surahName = surahsNames[randomSurahNumber - 1];
-  const randomAyahNumber = getRandomAyahNumber(randomSurahNumber, fromSurahValue, fromAyahStartValue, toAyahStartValue, toSurahValue, fromAyahEndValue, toAyahEndValue);
-  const ayahText = getAyahText(randomSurahNumber, randomAyahNumber);
-  return `س${questionNumber}: سورة ${surahName}: آية ${randomAyahNumber}: قال تعالى: "${ayahText}"`;
-}
+
+
+
+
 
 // دالة للحصول على رقم سورة عشوائي
-function getRandomSurahNumber(min, max) {
+function getRandomNumber(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
@@ -150,7 +160,7 @@ function getRandomAyahNumber(randomSurahNumber, fromSurahValue, fromAyahStartVal
     start = 1;
     end = surahsAyahsNumbers[randomSurahNumber - 1];
   }
-  return getRandomSurahNumber(start, end);
+  return getRandomNumber(start, end);
 }
 
 // دالة للحصول على نص آية محددة
