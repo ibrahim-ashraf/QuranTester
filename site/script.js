@@ -1,11 +1,15 @@
+// تعريف متغير وضع إضافة الأسئلة (افتراضي على "إنشاء")
+let mode = 'create';
+
 // تعريف متغيرات بيانات القرآن الكريم وبيانات السور
 let quranData;
 let surahsData;
 
-// تعريف متغيرات مصفوفات أسماء السور وعدد آياتها
+// تعريف متغيرات مصفوفات أسماء السور وعدد آياتها ومتغير مصفوفة الأسئلة
 let surahsFullNames = [];
 let surahsNames = [];
 let surahsAyahsNumbers = [];
+let questionsList = [];
 
 // الحصول على حقول تحديد السور ونطاقات الآيات وعدد الأسئلة
 const fromSurahSelect = document.getElementById('from-surah-select');
@@ -16,7 +20,8 @@ const fromAyahEndInput = document.getElementById('from-ayah-end-input');
 const toAyahEndInput = document.getElementById('to-ayah-end-input');
 const questionsCountInput = document.getElementById('questions-count-input');
 const createTestButton = document.getElementById('create-test-button');
-const questionsList = document.getElementById('questions-list');
+const addQuestionsButton = document.getElementById('add-questions');
+const questionsTableBody = document.getElementById('questions-table-body');
 
 // قراءة بيانات القرآن الكريم من ملف JSON
 fetch('quran.json')
@@ -67,8 +72,11 @@ function setSurahsDefaultRanges() {
 // دالة لتعيين نطاق الآيات الافتراضي بناءً على السورة المحددة
 function setAyahRange(surahSelect, fromAyah, toAyah) {
   const surahIndex = surahSelect.value - 1;
+  const ayahsCount = surahsAyahsNumbers[surahIndex];
+
   fromAyah.value = 1;
-  toAyah.value = surahsAyahsNumbers[surahIndex];
+  toAyah.value = ayahsCount;
+  toAyah.max = ayahsCount;
 }
 
 // دالة لتحديث نطاق الآيات بناءً على تغيير السورة
@@ -103,37 +111,50 @@ function createTest(event) {
   const toAyahEndValue = parseInt(toAyahEndInput.value);
   const questionsCountValue = parseInt(questionsCountInput.value);
 
-  // التحقق من ملء حقل عدد الأسئلة
-  if (!questionsCountValue) {
-    alert('يرجى كتابة عدد الأسئلة.');
-    return;
+  if (event.target.id === addQuestionsButton.id) {
+    mode = 'add';
   }
 
-  // مسح أي أسئلة قديمة
-  questionsList.innerHTML = '';
+  if (mode === 'create' && questionsList.length > 0) {
+    testDeleteConfirm = confirm('سيتم حذف الاختبار الحالي إذا أنشأت واحدا جديدا. هل تريد المتابعة؟');
+
+    if (testDeleteConfirm) {
+      questionsList = [];
+      questionsTableBody.innerHTML = '';
+    } else {
+      return;
+    }
+  }
 
   for (let i = 0; i < questionsCountValue; i++) {
-    const question = createRandomQuestion(i + 1, fromSurahValue, fromAyahStartValue, toAyahStartValue, toSurahValue, fromAyahEndValue, toAyahEndValue);
-    const listItem = document.createElement('li');
-    listItem.textContent = question;
-    questionsList.appendChild(listItem);
+    const randomSurahNumber = getRandomNumber(fromSurahValue, toSurahValue);
+    const randomAyahNumber = getRandomAyahNumber(randomSurahNumber, fromSurahValue, fromAyahStartValue, toAyahStartValue, toSurahValue, fromAyahEndValue, toAyahEndValue);
+    const ayahText = getAyahText(randomSurahNumber, randomAyahNumber);
+
+    const question = {
+      questionNumber: questionsList.length + 1,
+      surahNumber: randomSurahNumber,
+      surahName: surahsNames[randomSurahNumber - 1],
+      ayahNumber: randomAyahNumber,
+      ayahText: ayahText
+    };
+
+    questionsList.push(question);
   }
 
-  // عرض رسالة نجاح
-  alert('تم إنشاء الاختبار بنجاح!');
-}
+  displayQuestions();
 
-// دالة لإنشاء سؤال عشوائي
-function createRandomQuestion(questionNumber, fromSurahValue, fromAyahStartValue, toAyahStartValue, toSurahValue, fromAyahEndValue, toAyahEndValue) {
-  const randomSurahNumber = getRandomSurahNumber(fromSurahValue, toSurahValue);
-  const surahName = surahsNames[randomSurahNumber - 1];
-  const randomAyahNumber = getRandomAyahNumber(randomSurahNumber, fromSurahValue, fromAyahStartValue, toAyahStartValue, toSurahValue, fromAyahEndValue, toAyahEndValue);
-  const ayahText = getAyahText(randomSurahNumber, randomAyahNumber);
-  return `س${questionNumber}: سورة ${surahName}: آية ${randomAyahNumber}: قال تعالى: "${ayahText}"`;
+  // عرض رسالة نجاح
+  if (mode === 'create') {
+    alert('تم إنشاء الاختبار بنجاح!');
+  } else {
+    alert('تم إضافة الأسئلة بنجاح!');
+    mode = 'create';
+  }
 }
 
 // دالة للحصول على رقم سورة عشوائي
-function getRandomSurahNumber(min, max) {
+function getRandomNumber(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
@@ -150,13 +171,50 @@ function getRandomAyahNumber(randomSurahNumber, fromSurahValue, fromAyahStartVal
     start = 1;
     end = surahsAyahsNumbers[randomSurahNumber - 1];
   }
-  return getRandomSurahNumber(start, end);
+  return getRandomNumber(start, end);
 }
 
 // دالة للحصول على نص آية محددة
 function getAyahText(surahNumber, ayahNumber) {
   const ayah = quranData.find(aya => aya.sura_no === surahNumber && aya.aya_no === ayahNumber);
   return ayah ? ayah.aya_text_emlaey : '';
+}
+
+function displayQuestions() {
+  questionsTableBody.innerHTML = '';
+
+  if (questionsList.length === 0) {
+    addQuestionsButton.style.display = 'none';
+    return;
+  }
+
+  questionsList.forEach((question, index) => {
+    question.questionNumber = index + 1;
+
+    const HTMLTableRow = `
+    <tr>
+      <td>${question.questionNumber}</td>
+      <td>${question.surahName}</td>
+      <td>${question.ayahNumber}</td>
+      <td>${question.ayahText}</td>
+      <td><button onclick="deleteQuestion(${index})">حذف</button></td>
+    </tr>
+    `;
+    questionsTableBody.innerHTML += HTMLTableRow;
+  });
+
+  addQuestionsButton.style.display = 'block';
+}
+
+function deleteQuestion(questionIndex) {
+  questionDeleteConfirm = confirm(`هل تريد حذف السؤال رقم ${questionIndex + 1}؟`);
+
+  if (!questionDeleteConfirm) {
+    return;
+  }
+
+  questionsList.splice(questionIndex, 1);
+  displayQuestions();
 }
 
 // إضافة مستمعات للأحداث
@@ -171,3 +229,4 @@ questionsCountInput.addEventListener('input', validateNumericInput);
 questionsCountInput.addEventListener('input', toggleCreateTestButton);
 
 createTestButton.addEventListener('click', createTest);
+addQuestionsButton.addEventListener('click', createTest);
