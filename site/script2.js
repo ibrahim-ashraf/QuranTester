@@ -146,6 +146,7 @@ function createTest(event) {
     alert('تم إنشاء الاختبار بنجاح!');
   } else {
     alert('تم إضافة الأسئلة بنجاح!');
+    mode = 'create';
   }
 }
 
