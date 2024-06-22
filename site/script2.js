@@ -108,11 +108,10 @@ function createTest(event) {
   const toAyahEndValue = parseInt(toAyahEndInput.value);
   const questionsCountValue = parseInt(questionsCountInput.value);
 
-  if (event.id === addQuestionsButton.id) {
+  if (event.target.id === addQuestionsButton.id) {
     mode = 'add';
   }
 
-  alert(event.id);
   if (mode === 'create' && questionsList.length > 0) {
     testDeleteConfirm = confirm('سيتم حذف الاختبار الحالي إذا أنشأت واحدا جديدا. هل تريد المتابعة؟');
 
