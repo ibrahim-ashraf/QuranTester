@@ -180,6 +180,11 @@ function getAyahText(surahNumber, ayahNumber) {
 function displayQuestions() {
   questionsTableBody.innerHTML = '';
 
+  if (questionsList.length === 0) {
+    addQuestionsButton.style.display = 'none';
+    return;
+  }
+
   questionsList.forEach((question, index) => {
     question.questionNumber = index + 1;
 
