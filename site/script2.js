@@ -112,7 +112,7 @@ function createTest(event) {
     mode = 'add';
   }
 
-  alert(mode);
+  alert(addQuestionsButton.id);
   if (mode === 'create' && questionsList.length > 0) {
     testDeleteConfirm = confirm('سيتم حذف الاختبار الحالي إذا أنشأت واحدا جديدا. هل تريد المتابعة؟');
 
