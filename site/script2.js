@@ -72,8 +72,11 @@ function setSurahsDefaultRanges() {
 // دالة لتعيين نطاق الآيات الافتراضي بناءً على السورة المحددة
 function setAyahRange(surahSelect, fromAyah, toAyah) {
   const surahIndex = surahSelect.value - 1;
+  const ayahsCount = surahsAyahsNumbers[surahIndex];
+
   fromAyah.value = 1;
-  toAyah.value = surahsAyahsNumbers[surahIndex];
+  toAyah.value = ayahsCount;
+  toAyah.max = ayahsCount;
 }
 
 // دالة لتحديث نطاق الآيات بناءً على تغيير السورة
