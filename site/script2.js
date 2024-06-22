@@ -1,3 +1,6 @@
+// تعريف متغير وضع إضافة الأسئلة (افتراضي على "إنشاء")
+let mode = 'create';
+
 // تعريف متغيرات بيانات القرآن الكريم وبيانات السور
 let quranData;
 let surahsData;
@@ -17,6 +20,7 @@ const fromAyahEndInput = document.getElementById('from-ayah-end-input');
 const toAyahEndInput = document.getElementById('to-ayah-end-input');
 const questionsCountInput = document.getElementById('questions-count-input');
 const createTestButton = document.getElementById('create-test-button');
+const addQuestionsButton = document.getElementById('add-questions');
 const questionsTableBody = document.getElementById('questions-table-body');
 
 // قراءة بيانات القرآن الكريم من ملف JSON
@@ -104,9 +108,21 @@ function createTest(event) {
   const toAyahEndValue = parseInt(toAyahEndInput.value);
   const questionsCountValue = parseInt(questionsCountInput.value);
 
-  // مسح أي أسئلة قديمة
-  questionsList = [];
-  questionsTableBody.innerHTML = '';
+  if (event.id === addQuestionsButton.id) {
+    mode = 'add';
+  }
+
+  alert(mode);
+  if (mode === 'create' && questionsList.length > 0) {
+    testDeleteConfirm = confirm('سيتم حذف الاختبار الحالي إذا أنشأت واحدا جديدا. هل تريد المتابعة؟');
+
+    if (testDeleteConfirm) {
+      questionsList = [];
+      questionsTableBody.innerHTML = '';
+    } else {
+      return;
+    }
+  }
 
   for (let i = 0; i < questionsCountValue; i++) {
     const randomSurahNumber = getRandomNumber(fromSurahValue, toSurahValue);
@@ -174,6 +190,8 @@ function displayQuestions() {
     `;
     questionsTableBody.innerHTML += HTMLTableRow;
   });
+
+  addQuestionsButton.style.display = 'block';
 }
 
 function deleteQuestion(questionIndex) {
@@ -199,3 +217,4 @@ questionsCountInput.addEventListener('input', validateNumericInput);
 questionsCountInput.addEventListener('input', toggleCreateTestButton);
 
 createTestButton.addEventListener('click', createTest);
+addQuestionsButton.addEventListener('click', createTest);
