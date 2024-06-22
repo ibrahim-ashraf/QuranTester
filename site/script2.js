@@ -177,6 +177,12 @@ function displayQuestions() {
 }
 
 function deleteQuestion(questionIndex) {
+  questionDeleteConfirm = confirm(`هل تريد حذف السؤال رقم ${questionIndex + 1}؟`);
+
+  if (!questionDeleteConfirm) {
+    return;
+  }
+
   questionsList.splice(questionIndex, 1);
   displayQuestions();
 }
