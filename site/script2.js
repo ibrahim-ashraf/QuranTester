@@ -129,7 +129,7 @@ function createTest(event) {
     const ayahText = getAyahText(randomSurahNumber, randomAyahNumber);
 
     const question = {
-      questionNumber: i + 1,
+      questionNumber: questionsList.length + 1,
       surahNumber: randomSurahNumber,
       surahName: surahsNames[randomSurahNumber - 1],
       ayahNumber: randomAyahNumber,
@@ -142,7 +142,11 @@ function createTest(event) {
   displayQuestions();
 
   // عرض رسالة نجاح
-  alert('تم إنشاء الاختبار بنجاح!');
+  if (mode === 'create') {
+    alert('تم إنشاء الاختبار بنجاح!');
+  } else {
+    alert('تم إضافة الأسئلة بنجاح!');
+  }
 }
 
 // دالة للحصول على رقم سورة عشوائي
