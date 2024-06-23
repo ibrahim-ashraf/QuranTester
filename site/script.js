@@ -163,10 +163,10 @@ function setEmptyAyahsRangesFields(fromSurahValue, fromAyahStartValue, toAyahSta
   const toSurahAyahsCount = surahsAyahsNumbers[toSurahValue - 1];
 
   // التحقق من قيم نطاقات الآيات وتعيين قيمتها إذا لم تكن رقما
-  if (fromAyahStartValue.isnan()) fromAyahStartValue = 1;
-  if (toAyahStartValue.isnan()) toAyahStartValue = fromSurahAyahsCount;
-  if (fromAyahEndValue.isnan()) fromAyahEndValue = 1;
-  if (toAyahEndValue.isnan()) toAyahEndValue = toSurahAyahsCount;
+  if (isNaN(fromAyahStartValue)) fromAyahStartValue = 1;
+  if (isNaN(toAyahStartValue)) toAyahStartValue = fromSurahAyahsCount;
+  if (isNaN(fromAyahEndValue)) fromAyahEndValue = 1;
+  if (isNaN(toAyahEndValue)) toAyahEndValue = toSurahAyahsCount;
 }
 
 // دالة للحصول على رقم سورة عشوائي
