@@ -112,6 +112,9 @@ function createTest(event) {
   const toAyahEndValue = parseInt(toAyahEndInput.value);
   const questionsCountValue = parseInt(questionsCountInput.value);
 
+  setEmptyAyahsRangesFields(fromSurahValue, fromAyahStartValue, toAyahStartValue, toSurahValue, fromAyahEndValue, toAyahEndValue);
+  console.log(fromAyahStartValue, toAyahStartValue, fromAyahEndValue, toAyahEndValue);
+
   if (event.target.id === addQuestionsButton.id) {
     mode = 'add';
   }
@@ -152,6 +155,18 @@ function createTest(event) {
     alert('تم إضافة الأسئلة بنجاح!');
     mode = 'create';
   }
+}
+
+function setEmptyAyahsRangesFields(fromSurahValue, fromAyahStartValue, toAyahStartValue, toSurahValue, fromAyahEndValue, toAyahEndValue) {
+  // الحصول على عدد آيات السور المحددة
+  const fromSurahAyahsCount = surahsAyahsNumbers[fromSurahValue - 1];
+  const toSurahAyahsCount = surahsAyahsNumbers[toSurahValue - 1];
+
+  // التحقق من قيم نطاقات الآيات وتعيين قيمتها إذا لم تكن رقما
+  if (fromAyahStartValue.isnan()) fromAyahStartValue = 1;
+  if (toAyahStartValue.isnan()) toAyahStartValue = fromSurahAyahsCount;
+  if (fromAyahEndValue.isnan()) fromAyahEndValue = 1;
+  if (toAyahEndValue.isnan()) toAyahEndValue = toSurahAyahsCount;
 }
 
 // دالة للحصول على رقم سورة عشوائي
