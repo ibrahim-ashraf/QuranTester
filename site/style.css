@@ -1,5 +1,3 @@
-/* style.css */
-
 /* استيراد الخطوط */
 @import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap');
 
@@ -77,6 +75,7 @@ a:hover {
 
 /* تنسيق القوائم */
 ul {
+    list-style-type: none;
     padding-left: 20px;
 }
 
