@@ -222,13 +222,16 @@ function switchSurahs(event) {
   // منع السلوك الافتراضي لزر تبديل السور
   event.preventDefault();
 
-  // الحصول على قيم قوائم سور البداية والنهاية
+  // الحصول على قيم سور البداية والنهاية
   const fromSurahValue = parseInt(fromSurahSelect.value);
   const toSurahValue = parseInt(toSurahSelect.value);
 
   // تعيين قيم سور البداية والنهاية بالعكس
   fromSurahSelect.value = toSurahValue;
   toSurahSelect.value = fromSurahValue;
+
+  // استدعاء دالة تعيين النطاق الافتراضي للآيات طبقا للسور المحددة
+  setSurahsDefaultRanges();
 }
 
 // إضافة مستمعات للأحداث
