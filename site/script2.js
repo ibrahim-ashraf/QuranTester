@@ -15,7 +15,7 @@ let questionsList = [];
 const fromSurahSelect = document.getElementById('from-surah-select');
 const fromAyahStartInput = document.getElementById('from-ayah-start-input');
 const toAyahStartInput = document.getElementById('to-ayah-start-input');
-const switchSurahsButton = document.getElementById('switch-surahs');
+const switchSurahsButton = document.getElementById('switch-surahs-button');
 const toSurahSelect = document.getElementById('to-surah-select');
 const fromAyahEndInput = document.getElementById('from-ayah-end-input');
 const toAyahEndInput = document.getElementById('to-ayah-end-input');
@@ -220,7 +220,7 @@ function deleteQuestion(questionIndex) {
 
 function switchSurahs(event) {
   // منع السلوك الافتراضي لزر تبديل السور
-  event.preventDefault;
+  event.preventDefault();
 
   // الحصول على قيم قوائم سور البداية والنهاية
   const fromSurahValue = parseInt(fromSurahSelect.value);
