@@ -15,6 +15,7 @@ let questionsList = [];
 const fromSurahSelect = document.getElementById('from-surah-select');
 const fromAyahStartInput = document.getElementById('from-ayah-start-input');
 const toAyahStartInput = document.getElementById('to-ayah-start-input');
+const switchSurahsButton = document.getElementById('switch-surahs-button');
 const toSurahSelect = document.getElementById('to-surah-select');
 const fromAyahEndInput = document.getElementById('from-ayah-end-input');
 const toAyahEndInput = document.getElementById('to-ayah-end-input');
@@ -217,16 +218,31 @@ function deleteQuestion(questionIndex) {
   displayQuestions();
 }
 
+function switchSurahs(event) {
+  // منع السلوك الافتراضي لزر تبديل السور
+  event.preventDefault();
+
+  // الحصول على قيم سور البداية والنهاية
+  const fromSurahValue = parseInt(fromSurahSelect.value);
+  const toSurahValue = parseInt(toSurahSelect.value);
+
+  // تعيين قيم سور البداية والنهاية بالعكس
+  fromSurahSelect.value = toSurahValue;
+  toSurahSelect.value = fromSurahValue;
+
+  // استدعاء دالة تعيين النطاق الافتراضي للآيات طبقا للسور المحددة
+  setSurahsDefaultRanges();
+}
+
 // إضافة مستمعات للأحداث
 fromSurahSelect.addEventListener('change', setSelectedSurahRange);
-toSurahSelect.addEventListener('change', setSelectedSurahRange);
-
 fromAyahStartInput.addEventListener('input', validateNumericInput);
 toAyahStartInput.addEventListener('input', validateNumericInput);
+switchSurahsButton.addEventListener('click', switchSurahs);
+toSurahSelect.addEventListener('change', setSelectedSurahRange);
 fromAyahEndInput.addEventListener('input', validateNumericInput);
 toAyahEndInput.addEventListener('input', validateNumericInput);
 questionsCountInput.addEventListener('input', validateNumericInput);
 questionsCountInput.addEventListener('input', toggleCreateTestButton);
-
 createTestButton.addEventListener('click', createTest);
 addQuestionsButton.addEventListener('click', createTest);
