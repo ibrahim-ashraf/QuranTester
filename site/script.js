@@ -112,7 +112,7 @@ function createTest(event) {
   let toAyahEndValue = parseInt(toAyahEndInput.value);
   let questionsCountValue = parseInt(questionsCountInput.value);
 
-  const [fromAyahStartValue, toAyahStartValue, fromAyahEndValue, toAyahEndValue] = setEmptyAyahsRangesFields(fromSurahValue, fromAyahStartValue, toAyahStartValue, toSurahValue, fromAyahEndValue, toAyahEndValue);
+  [fromAyahStartValue, toAyahStartValue, fromAyahEndValue, toAyahEndValue] = setEmptyAyahsRangesFields(fromSurahValue, fromAyahStartValue, toAyahStartValue, toSurahValue, fromAyahEndValue, toAyahEndValue);
   console.log(fromAyahStartValue, toAyahStartValue, fromAyahEndValue, toAyahEndValue);
 
   if (event.target.id === addQuestionsButton.id) {
