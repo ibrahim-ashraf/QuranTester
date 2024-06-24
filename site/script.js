@@ -112,7 +112,7 @@ function createTest(event) {
   let toAyahEndValue = parseInt(toAyahEndInput.value);
   let questionsCountValue = parseInt(questionsCountInput.value);
 
-  setEmptyAyahsRangesFields(fromSurahValue, fromAyahStartValue, toAyahStartValue, toSurahValue, fromAyahEndValue, toAyahEndValue);
+  const [fromAyahStartValue, toAyahStartValue, fromAyahEndValue, toAyahEndValue] = setEmptyAyahsRangesFields(fromSurahValue, fromAyahStartValue, toAyahStartValue, toSurahValue, fromAyahEndValue, toAyahEndValue);
   console.log(fromAyahStartValue, toAyahStartValue, fromAyahEndValue, toAyahEndValue);
 
   if (event.target.id === addQuestionsButton.id) {
@@ -163,10 +163,12 @@ function setEmptyAyahsRangesFields(fromSurah, fromAyahStart, toAyahStart, toSura
   const toSurahAyahsCount = surahsAyahsNumbers[toSurah - 1];
 
   // التحقق من قيم نطاقات الآيات وتعيين قيمتها إذا لم تكن رقما
-  if (isNaN(fromAyahStart)) fromAyahStartValue = 1;
-  if (isNaN(toAyahStart)) toAyahStartValue = fromSurahAyahsCount;
-  if (isNaN(fromAyahEnd)) fromAyahEndValue = 1;
-  if (isNaN(toAyahEnd)) toAyahEndValue = toSurahAyahsCount;
+  const fromAyahStartValue = isNaN(fromAyahStart) ? 1 : fromAyahStart;
+  const toAyahStartValue = isNaN(toAyahStart) ? fromSurahAyahsCount : toAyahStart;
+  const fromAyahEndValue = isNaN(fromAyahEnd) ? 1 : fromAyahEnd;
+  const toAyahEndValue = isNaN(toAyahEnd) ? toSurahAyahsCount : toAyahEnd;
+
+  return [fromAyahStartValue, toAyahStartValue, fromAyahEndValue, toAyahEndValue];
 }
 
 // دالة للحصول على رقم سورة عشوائي
