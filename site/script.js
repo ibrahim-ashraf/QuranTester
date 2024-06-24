@@ -157,22 +157,16 @@ function createTest(event) {
   }
 }
 
-function setEmptyAyahsRangesFields(fromSurahValue, fromAyahStartValue, toAyahStartValue, toSurahValue, fromAyahEndValue, toAyahEndValue) {
+function setEmptyAyahsRangesFields(fromSurah, fromAyahStart, toAyahStart, toSurah, fromAyahEnd, toAyahEnd) {
   // الحصول على عدد آيات السور المحددة
-  const fromSurahAyahsCount = surahsAyahsNumbers[fromSurahValue - 1];
-  const toSurahAyahsCount = surahsAyahsNumbers[toSurahValue - 1];
+  const fromSurahAyahsCount = surahsAyahsNumbers[fromSurah - 1];
+  const toSurahAyahsCount = surahsAyahsNumbers[toSurah - 1];
 
   // التحقق من قيم نطاقات الآيات وتعيين قيمتها إذا لم تكن رقما
-  if (isNaN(fromAyahStartValue)) fromAyahStartInput.value = 1;
-  if (isNaN(toAyahStartValue)) toAyahStartInput.value = fromSurahAyahsCount;
-  if (isNaN(fromAyahEndValue)) fromAyahEndInput.value = 1;
-  if (isNaN(toAyahEndValue)) toAyahEndInput.value = toSurahAyahsCount;
-
-  // تعيين القيم المحدثة إلى المتغيرات الأصلية
-  fromAyahStartValue = parseInt(fromAyahStartInput.value);
-  toAyahStartValue = parseInt(toAyahStartInput.value);
-  fromAyahEndValue = parseInt(fromAyahEndInput.value);
-  toAyahEndValue = parseInt(toAyahEndInput.value);
+  if (isNaN(fromAyahStart)) fromAyahStartValue = 1;
+  if (isNaN(toAyahStart)) toAyahStartValue = fromSurahAyahsCount;
+  if (isNaN(fromAyahEnd)) fromAyahEndValue = 1;
+  if (isNaN(toAyahEnd)) toAyahEndValue = toSurahAyahsCount;
 }
 
 // دالة للحصول على رقم سورة عشوائي
