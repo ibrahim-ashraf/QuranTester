@@ -104,13 +104,16 @@ function toggleCreateTestButton() {
 function createTest(event) {
   event.preventDefault();
 
-  const fromSurahValue = parseInt(fromSurahSelect.value);
-  const fromAyahStartValue = parseInt(fromAyahStartInput.value);
-  const toAyahStartValue = parseInt(toAyahStartInput.value);
-  const toSurahValue = parseInt(toSurahSelect.value);
-  const fromAyahEndValue = parseInt(fromAyahEndInput.value);
-  const toAyahEndValue = parseInt(toAyahEndInput.value);
-  const questionsCountValue = parseInt(questionsCountInput.value);
+  let fromSurahValue = parseInt(fromSurahSelect.value);
+  let fromAyahStartValue = parseInt(fromAyahStartInput.value);
+  let toAyahStartValue = parseInt(toAyahStartInput.value);
+  let toSurahValue = parseInt(toSurahSelect.value);
+  let fromAyahEndValue = parseInt(fromAyahEndInput.value);
+  let toAyahEndValue = parseInt(toAyahEndInput.value);
+  let questionsCountValue = parseInt(questionsCountInput.value);
+
+  [fromAyahStartValue, toAyahStartValue, fromAyahEndValue, toAyahEndValue] = setEmptyAyahsRangesFields(fromSurahValue, fromAyahStartValue, toAyahStartValue, toSurahValue, fromAyahEndValue, toAyahEndValue);
+  console.log(fromAyahStartValue, toAyahStartValue, fromAyahEndValue, toAyahEndValue);
 
   if (event.target.id === addQuestionsButton.id) {
     mode = 'add';
@@ -152,6 +155,20 @@ function createTest(event) {
     alert('تم إضافة الأسئلة بنجاح!');
     mode = 'create';
   }
+}
+
+function setEmptyAyahsRangesFields(fromSurah, fromAyahStart, toAyahStart, toSurah, fromAyahEnd, toAyahEnd) {
+  // الحصول على عدد آيات السور المحددة
+  const fromSurahAyahsCount = surahsAyahsNumbers[fromSurah - 1];
+  const toSurahAyahsCount = surahsAyahsNumbers[toSurah - 1];
+
+  // التحقق من قيم نطاقات الآيات وتعيين قيمتها إذا لم تكن رقما
+  const fromAyahStartValue = isNaN(fromAyahStart) ? 1 : fromAyahStart;
+  const toAyahStartValue = isNaN(toAyahStart) ? fromSurahAyahsCount : toAyahStart;
+  const fromAyahEndValue = isNaN(fromAyahEnd) ? 1 : fromAyahEnd;
+  const toAyahEndValue = isNaN(toAyahEnd) ? toSurahAyahsCount : toAyahEnd;
+
+  return [fromAyahStartValue, toAyahStartValue, fromAyahEndValue, toAyahEndValue];
 }
 
 // دالة للحصول على رقم سورة عشوائي
