@@ -90,6 +90,16 @@ function setSelectedSurahRange(event) {
   }
 }
 
+// دالة للتحقق من صحة اختيار السور
+function validateSurahSelection() {
+  // الحصول على قيمة حقول السور المحددة
+  const fromSurahValue = parseInt(fromSurahSelect.value);
+  const toSurahValue = parseInt(toSurahSelect.value);
+
+  // التحقق من كون قيمة سورة النهاية أصغر من قيمة سورة البداية، وتعيين قيمة سورة النهاية لتساوي على الأقل قيمة سورة البداية
+  if (toSurahValue < fromSurahValue) toSurahSelect.value = fromSurahValue;
+}
+
 // دالة للتحقق من إدخال القيم الرقمية
 function validateNumericInput(event) {
   event.target.value = event.target.value.replace(/[^0-9]/g, '').replace(/^0+/, '');
@@ -252,11 +262,19 @@ function switchSurahs(event) {
 }
 
 // إضافة مستمعات للأحداث
-fromSurahSelect.addEventListener('change', setSelectedSurahRange);
+fromSurahSelect.addEventListener('change', (event) => {
+  setSelectedSurahRange(event);
+  validateSurahSelection();
+});
+
 fromAyahStartInput.addEventListener('input', validateNumericInput);
 toAyahStartInput.addEventListener('input', validateNumericInput);
 switchSurahsButton.addEventListener('click', switchSurahs);
-toSurahSelect.addEventListener('change', setSelectedSurahRange);
+toSurahSelect.addEventListener('change', (event) => {
+  setSelectedSurahRange(event);
+  validateSurahSelection();
+});
+
 fromAyahEndInput.addEventListener('input', validateNumericInput);
 toAyahEndInput.addEventListener('input', validateNumericInput);
 questionsCountInput.addEventListener('input', validateNumericInput);
