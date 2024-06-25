@@ -91,16 +91,30 @@ function setSelectedSurahRange(event) {
 }
 
 // دالة للتحقق من صحة اختيار السور
-function validateSurahSelection() {
-  // الحصول على قيمة حقول السور المحددة
-  const fromSurahValue = parseInt(fromSurahSelect.value);
-  const toSurahValue = parseInt(toSurahSelect.value);
+function validateSurahSelection(event) {
+  // الحصول على القائمة الحالية لتحديد السورة
+  const surahSelect = event.target;
 
-  // التحقق من كون قيمة سورة النهاية أصغر من قيمة سورة البداية، وتعيين قيمة سورة النهاية لتساوي على الأقل قيمة سورة البداية
-  if (toSurahValue < fromSurahValue) toSurahSelect.value = fromSurahValue;
+  // الحصول على القائمة الأخرى لتحديد السورة حسب القائمة الحالية
+  if (surahSelect.id === fromSurahSelect.id) {
+    const otherSurahSelect = toSurahSelect;
 
-  // التحقق من كون قيمة سورة البداية أكبر من قيمة سورة النهاية، وتعيين قيمة سورة البداية لتساوي على الأقل قيمة سورة النهاية
-  if (fromSurahValue > toSurahValue) fromSurahSelect.value = toSurahValue;
+    // الحصول على قيمة الخيار المحدد من القائمة الحالية والقائمة الأخرى لتحديد السورة
+    let surahSelectValue = parseInt(surahSelect.value);
+    let otherSurahSelectValue = parseInt(otherSurahSelect.value);
+
+    // التحقق من كون قيمة خيار القائمة الحالية أكبر من قيمة خيار القائمة الأخرى، وتعيين قيمة خيار القائمة الأخرى إلى القائمة الحالية
+    if (surahSelectValue > otherSurahSelectValue) fromSurahSelect.value = otherSurahSelectValue;
+  } else if (surahSelect.id === toSurahSelect.id) {
+    const otherSurahSelect = fromSurahSelect;
+
+    // الحصول على قيمة الخيار المحدد من القائمة الحالية والقائمة الأخرى لتحديد السورة
+    let surahSelectValue = parseInt(surahSelect.value);
+    let otherSurahSelectValue = parseInt(otherSurahSelect.value);
+
+    // التحقق من كون قيمة خيار القائمة الحالية أصغر من قيمة خيار القائمة الأخرى، وتعيين قيمة خيار القائمة الأخرى إلى القائمة الحالية
+    if (surahSelectValue < otherSurahSelectValue) toSurahSelect.value = otherSurahSelectValue;
+  }
 }
 
 // دالة للتحقق من إدخال القيم الرقمية
