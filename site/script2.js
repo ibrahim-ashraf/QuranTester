@@ -275,7 +275,7 @@ function switchSurahs(event) {
 
 // إضافة مستمعات للأحداث
 fromSurahSelect.addEventListener('change', (event) => {
-  validateSurahSelection();
+  validateSurahSelection(event);
   setSelectedSurahRange(event);
 });
 
@@ -283,7 +283,7 @@ fromAyahStartInput.addEventListener('input', validateNumericInput);
 toAyahStartInput.addEventListener('input', validateNumericInput);
 switchSurahsButton.addEventListener('click', switchSurahs);
 toSurahSelect.addEventListener('change', (event) => {
-  validateSurahSelection();
+  validateSurahSelection(event);
   setSelectedSurahRange(event);
 });
 
