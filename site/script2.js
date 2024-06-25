@@ -98,6 +98,9 @@ function validateSurahSelection() {
 
   // التحقق من كون قيمة سورة النهاية أصغر من قيمة سورة البداية، وتعيين قيمة سورة النهاية لتساوي على الأقل قيمة سورة البداية
   if (toSurahValue < fromSurahValue) toSurahSelect.value = fromSurahValue;
+
+  // التحقق من كون قيمة سورة البداية أكبر من قيمة سورة النهاية، وتعيين قيمة سورة البداية لتساوي على الأقل قيمة سورة النهاية
+  if (fromSurahValue > toSurahValue) fromSurahSelect.value = toSurahValue;
 }
 
 // دالة للتحقق من إدخال القيم الرقمية
@@ -263,16 +266,16 @@ function switchSurahs(event) {
 
 // إضافة مستمعات للأحداث
 fromSurahSelect.addEventListener('change', (event) => {
-  setSelectedSurahRange(event);
   validateSurahSelection();
+  setSelectedSurahRange(event);
 });
 
 fromAyahStartInput.addEventListener('input', validateNumericInput);
 toAyahStartInput.addEventListener('input', validateNumericInput);
 switchSurahsButton.addEventListener('click', switchSurahs);
 toSurahSelect.addEventListener('change', (event) => {
-  setSelectedSurahRange(event);
   validateSurahSelection();
+  setSelectedSurahRange(event);
 });
 
 fromAyahEndInput.addEventListener('input', validateNumericInput);
