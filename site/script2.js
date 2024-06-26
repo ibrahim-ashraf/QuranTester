@@ -105,10 +105,8 @@ function validateSurahSelection(event) {
   // التحقق من القيم وتعيين القيمة الصالحة
   if (surahSelect.id === fromSurahSelect.id && surahSelectValue > otherSurahSelectValue) {
     fromSurahSelect.value = otherSurahSelectValue;
-    alert("لا يمكن أن تكون سورة البداية أكبر من سورة النهاية. تمت إعادة تعيين سورة البداية إلى سورة النهاية.");
   } else if (surahSelect.id === toSurahSelect.id && surahSelectValue < otherSurahSelectValue) {
     toSurahSelect.value = otherSurahSelectValue;
-    alert("لا يمكن أن تكون سورة النهاية أقل من سورة البداية. تمت إعادة تعيين سورة النهاية إلى سورة البداية.");
   }
 }
 
@@ -264,9 +262,12 @@ function switchSurahs(event) {
   const fromSurahValue = parseInt(fromSurahSelect.value);
   const toSurahValue = parseInt(toSurahSelect.value);
 
-  // تعيين قيم سور البداية والنهاية بالعكس
+  if (fromSurahValue === toSurahValue) {
+    alert('لا يمكن التبديل؛ لأن سورة البداية هي سورة النهاية!');
+    return;
+  }
+
   fromSurahSelect.value = toSurahValue;
-  toSurahSelect.value = fromSurahValue;
 
   // استدعاء دالة تعيين النطاق الافتراضي للآيات طبقا للسور المحددة
   setSurahsDefaultRanges();
