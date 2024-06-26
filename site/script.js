@@ -90,6 +90,28 @@ function setSelectedSurahRange(event) {
   }
 }
 
+// دالة للتحقق من صحة اختيار السور
+function validateSurahSelection(event) {
+  // الحصول على القائمة الحالية لتحديد السورة
+  const surahSelect = event.target;
+
+  // الحصول على القائمة الأخرى لتحديد السورة حسب القائمة الحالية
+  const otherSurahSelect = (surahSelect.id === fromSurahSelect.id) ? toSurahSelect : fromSurahSelect;
+
+  // الحصول على قيمة الخيار المحدد من القائمة الحالية والقائمة الأخرى لتحديد السورة
+  const surahSelectValue = parseInt(surahSelect.value);
+  const otherSurahSelectValue = parseInt(otherSurahSelect.value);
+
+  // التحقق من القيم وتعيين القيمة الصالحة
+  if (surahSelect.id === fromSurahSelect.id && surahSelectValue > otherSurahSelectValue) {
+    fromSurahSelect.value = otherSurahSelectValue;
+    alert("لا يمكن أن تكون سورة البداية أكبر من سورة النهاية. تمت إعادة تعيين سورة البداية إلى سورة النهاية.");
+  } else if (surahSelect.id === toSurahSelect.id && surahSelectValue < otherSurahSelectValue) {
+    toSurahSelect.value = otherSurahSelectValue;
+    alert("لا يمكن أن تكون سورة النهاية أقل من سورة البداية. تمت إعادة تعيين سورة النهاية إلى سورة البداية.");
+  }
+}
+
 // دالة للتحقق من إدخال القيم الرقمية
 function validateNumericInput(event) {
   event.target.value = event.target.value.replace(/[^0-9]/g, '').replace(/^0+/, '');
@@ -113,7 +135,6 @@ function createTest(event) {
   let questionsCountValue = parseInt(questionsCountInput.value);
 
   [fromAyahStartValue, toAyahStartValue, fromAyahEndValue, toAyahEndValue] = setEmptyAyahsRangesFields(fromSurahValue, fromAyahStartValue, toAyahStartValue, toSurahValue, fromAyahEndValue, toAyahEndValue);
-  console.log(fromAyahStartValue, toAyahStartValue, fromAyahEndValue, toAyahEndValue);
 
   if (event.target.id === addQuestionsButton.id) {
     mode = 'add';
@@ -252,11 +273,19 @@ function switchSurahs(event) {
 }
 
 // إضافة مستمعات للأحداث
-fromSurahSelect.addEventListener('change', setSelectedSurahRange);
+fromSurahSelect.addEventListener('change', (event) => {
+  validateSurahSelection(event);
+  setSelectedSurahRange(event);
+});
+
 fromAyahStartInput.addEventListener('input', validateNumericInput);
 toAyahStartInput.addEventListener('input', validateNumericInput);
 switchSurahsButton.addEventListener('click', switchSurahs);
-toSurahSelect.addEventListener('change', setSelectedSurahRange);
+toSurahSelect.addEventListener('change', (event) => {
+  validateSurahSelection(event);
+  setSelectedSurahRange(event);
+});
+
 fromAyahEndInput.addEventListener('input', validateNumericInput);
 toAyahEndInput.addEventListener('input', validateNumericInput);
 questionsCountInput.addEventListener('input', validateNumericInput);
